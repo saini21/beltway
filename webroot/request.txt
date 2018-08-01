@@ -1,0 +1,6 @@
+Array
+(
+    [message] => a
+    [auth_token] => c9f0f895fb98ab9159f51fd0297e236d
+    [room] => e70fa2a998af5710bd1cc29876ee1ffb
+)
