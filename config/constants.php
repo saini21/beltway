@@ -1,6 +1,6 @@
 <?php
 define('SITE_TITLE', 'Beltway Graffiti');
-define('SITE_URL', 'http://localhost/beltway');
+define('SITE_URL', 'http://13.127.136.107/beltway/');
 define('PROFILE_IMAGE_PATH', '/beltway/files/Users/profile_image/');
 define('LONG_DATE', 'l, F j, Y \a\t g:i a');
 define('SHORT_DATE', 'M j, y  g:i A');
@@ -11,7 +11,7 @@ define('PAGE_LIMIT', 20);
 define('FROM_EMAIL', 'no-reply@beltway.com');
 define('SUPPORT_EMAIL', 'support@beltway.com');
 define('SOCKET_PORT', 2021);
-define('HOST_IP', '192.168.1.101');
+define('HOST_IP', '13.127.136.107');
 
 
 /*
