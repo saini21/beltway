@@ -36,6 +36,7 @@ class Article extends Entity {
         'title' => true,
         'content' => true,
         'like_count' => true,
+        'comment_count'=>true,
         'status' => true,
         'created' => true,
         'modified' => true,
