@@ -170,7 +170,7 @@ return [
      *   breathing room to complete logging or error handling.
      */
     'Error' => [
-        'errorLevel' => E_ALL,
+        'errorLevel' => E_ALL ^ E_USER_DEPRECATED,
         'exceptionRenderer' => 'Cake\Error\ExceptionRenderer',
         'skipLog' => [],
         'log' => true,
@@ -198,19 +198,17 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => 'Mail',
-            /*
-             * The following keys are used in SMTP transports:
-             */
-            'host' => 'localhost',
-            'port' => 25,
+            'className' => 'Smtp', //'Mail',
+            // The following keys are used in SMTP transports
+            'host' => 'smtp.gmail.com',
+            'port' => 587,
             'timeout' => 30,
-            'username' => null,
-            'password' => null,
+            'username' => 'er.singhsandy@gmail.com',
+            'password' => 'dodevelopment',
             'client' => null,
-            'tls' => null,
+            'tls' => true,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
-        ],
+        ]
     ],
 
     /**
