@@ -6,6 +6,8 @@ var sendMessageManually = false;
 var socket = io('http' + '://' + HOST_IP + ':' + SOCKET_PORT);
 
 socket.io.on('connect_error', function (err) {
+	
+	console.log(err);
     // handle server error here
     loadMessageManually = false;
     sendMessageManually = true;
