@@ -10,7 +10,7 @@ define('NICE_DATE', 'l, F j, Y');
 define('PAGE_LIMIT', 20);
 define('FROM_EMAIL', 'no-reply@beltway.com');
 define('SUPPORT_EMAIL', 'support@beltway.com');
-define('SOCKET_PORT', 2021);
+define('SOCKET_PORT', 8612);
 define('HOST_IP', '13.127.136.107');
 
 
