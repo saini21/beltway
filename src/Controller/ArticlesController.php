@@ -21,7 +21,7 @@ class ArticlesController extends AppController {
     public function platform() {
         $showBtn = false;
         $authUser = $this->Auth->user();
-        if (($authUser['role'] == "Private Citizen" && $authUser['type'] == "Activist") || ($authUser['role'] == "Politician" && $authUser['type'] == "Politician")) {
+        if (($authUser['role'] == "Private Citizen" && $authUser['user_type'] == "Activist") || ($authUser['role'] == "Politician" && $authUser['user_type'] == "Politician")) {
             $showBtn = true;
         }
         
