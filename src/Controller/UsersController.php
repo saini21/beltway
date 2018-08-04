@@ -335,19 +335,19 @@ class UsersController extends AppController {
         $this->set('userDetail', $userDetail);
     }
     
-    public function privateCitizenApi() {
+    public function privateCitizenApi($userId = null, $type = null) {
         $this->autoRender = false;
-        $user = $this->Users->findById($this->request->query['uid'])->first();
+        $user = $this->Users->findById($userId)->first();
         if ($user) {
-            $user->user_type = $this->request->query['type'];
+            $user->user_type = $type;
             $user->registration_steps_done = true;
             if ($this->Users->save($user)) {
                 $subscriptions = TableRegistry::get('Subscriptions');
                 $subscription = $subscriptions->newEntity();
-                $subscription->user_id = $this->request->query['uid'];
+                $subscription->user_id = $userId;
                 $subscription->role = 'Private Citizen';
-                $subscription->user_type = $this->request->query['type'];
-                $subscription->price = ($this->request->query['type'] == "Citizen") ? '0.99' : '4.99';
+                $subscription->user_type = $type;
+                $subscription->price = ($type == "Citizen") ? '0.99' : '4.99';
                 
                 $subscriptions->save($subscription);
                 
@@ -364,23 +364,24 @@ class UsersController extends AppController {
         //Do Something
     }
     
-    public function politicianApi() {
+    public function politicianApi($userId= null) {
         $this->autoRender = false;
-        $user = $this->Users->findById($this->request->query['uid'])->first();
+        
+        $user = $this->Users->findById($userId)->first();
         if ($user) {
             $user->registration_steps_done = true;
             $user->user_type = "Politician";
             if ($this->Users->save($user)) {
                 $subscriptions = TableRegistry::get('Subscriptions');
                 $subscription = $subscriptions->newEntity();
-                $subscription->user_id = $this->request->query['uid'];
+                $subscription->user_id = $userId;
                 $subscription->role = 'Politician';
                 $subscription->user_type = 'Politician';
                 $subscription->price = '49.99';
                 
                 $subscriptions->save($subscription);
                 $this->Flash->success(__('Thank you for subscription.'));
-                return $this->redirect(['action' => 'dashboard']);
+                return $this->redirect(['controller'=>'Articles','action' => 'platform']);
             } else {
                 $this->Flash->success(__('Something went wrong, please try again.'));
                 return $this->redirect(['action' => 'politician']);

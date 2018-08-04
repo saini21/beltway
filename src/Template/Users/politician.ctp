@@ -93,12 +93,21 @@
             
             <h5> Membership <br> <br></h5>
             
+            <!-- form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+				<input type="hidden" name="return" id="returnUrl" value="<?= SITE_URL?>/users/politician-api/<?= $authUser['id']; ?>/">
+				<input type="hidden" name="cmd" value="_s-xclick">
+				<input type="hidden" name="hosted_button_id" value="VN9ZYS3GJW484">
+				<input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+				<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+			</form -->
+
+            
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="on0" value="Member Status">
                 <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
 ">
-                <input type="text" name="return" id="returnUrl" value="<?= SITE_URL?>/users/politician-api/?uid=<?= $authUser['id']; ?>&type=Politician">
+                <input type="hidden" name="return" id="returnUrl" value="<?= SITE_URL?>/users/politician-api/<?= $authUser['id']; ?>/">
                 <div class="form-group">
                     <div class="radio radio-danger vikas">
                         <input type="radio" class="user_type" name="os0" value="Politician" checked="checked">
