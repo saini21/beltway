@@ -9,6 +9,7 @@
     <div class="col-md-10" id="polls"></div>
     <!-- div class="col-md-2"><h3 style="color: #F4B2BF; margin: -20px 0 0 0; text-align: center;">Exit Polling</h3></div -->
 </div>
+<?= $this->element('upgrade-account') ?>
 <template id="questionTmpl">
     <div class="poll" id="poll_${id}" style="margin: -20px 0 0 0;">
         <div class="row">
@@ -136,6 +137,10 @@
     var loadPage = 1;
     var loadingData = false;
     $(function () {
+    
+        $('.upgrade_account').click(function () {
+            $('#upgradeAccount').modal('show');
+        });
         
         $("#polls").on("click", ".poll-the-question", function () {
             var id = $(this).attr('id').split('_')[1];
