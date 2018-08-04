@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col-md-2">
         <?php if ($showBtn) { ?>
-            <div class="create-poll"><a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'create']); ?>">Create Poll</a></div>
+            <div class="create-poll"><a
+                    href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'create']); ?>">Create Poll</a>
+            </div>
         <?php } else { ?>
             <div class="create-poll"><a href="javascript:void(0);" class="upgrade_account">Create Poll</a></div>
         <?php } ?>
@@ -38,7 +40,8 @@
                                         <input type="radio" name="poll_${id}" id="answer1_${id}" value="answer1"
                                                checked="checked" disabled="disabled">
                                         {%else%}
-                                        <input type="radio" name="poll_${id}" id="answer1_${id}" value="answer1" disabled="disabled">
+                                        <input type="radio" name="poll_${id}" id="answer1_${id}" value="answer1"
+                                               disabled="disabled">
                                         {%/if%}
                                         {%else%}
                                         <input type="radio" name="poll_${id}" id="answer1_${id}" value="answer1">
@@ -54,7 +57,8 @@
                                         <input type="radio" name="poll_${id}" id="answer2_${id}" value="answer2"
                                                checked="checked" disabled="disabled">
                                         {%else%}
-                                        <input type="radio" name="poll_${id}" id="answer2_${id}" value="answer2" disabled="disabled">
+                                        <input type="radio" name="poll_${id}" id="answer2_${id}" value="answer2"
+                                               disabled="disabled">
                                         {%/if%}
                                         {%else%}
                                         <input type="radio" name="poll_${id}" id="answer2_${id}" value="answer2">
@@ -71,7 +75,8 @@
                                         <input type="radio" name="poll_${id}" id="answer3_${id}" value="answer3"
                                                checked="checked" disabled="disabled">
                                         {%else%}
-                                        <input type="radio" name="poll_${id}" id="answer3_${id}" value="answer3" disabled="disabled">
+                                        <input type="radio" name="poll_${id}" id="answer3_${id}" value="answer3"
+                                               disabled="disabled">
                                         {%/if%}
                                         {%else%}
                                         <input type="radio" name="poll_${id}" id="answer3_${id}" value="answer3">
@@ -86,7 +91,8 @@
                                         <input type="radio" name="poll_${id}" id="answer4_${id}" value="answer4"
                                                checked="checked" disabled="disabled">
                                         {%else%}
-                                        <input type="radio" name="poll_${id}" id="answer4_${id}" value="answer1" disabled="disabled">
+                                        <input type="radio" name="poll_${id}" id="answer4_${id}" value="answer1"
+                                               disabled="disabled">
                                         {%/if%}
                                         {%else%}
                                         <input type="radio" name="poll_${id}" id="answer4_${id}" value="answer4">
@@ -111,13 +117,15 @@
                                 </div>
                                 <div class="col-sm-2">
                                     {%if poll_answers.length %}
-                                        <button class="btn btn-danger poll-the-question" style="background-color: #DA002C" id="pollBtn_${id}" disabled>
-                                            <b>Polled</b>
-                                        </button>
+                                    <button class="btn btn-danger poll-the-question" style="background-color: #DA002C"
+                                            id="pollBtn_${id}" disabled>
+                                        <b>Polled</b>
+                                    </button>
                                     {%else%}
-                                        <button class="btn btn-danger poll-the-question" style="background-color: #DA002C" id="pollBtn_${id}">
-                                            <b>Poll</b>
-                                        </button>
+                                    <button class="btn btn-danger poll-the-question" style="background-color: #DA002C"
+                                            id="pollBtn_${id}">
+                                        <b>Poll</b>
+                                    </button>
                                     {%/if%}
                                     <!--button class="btn btn-danger poll-the-question" style="background-color: #DA002C"
                                             id="pollBtn_${id}">
@@ -137,7 +145,7 @@
     var loadPage = 1;
     var loadingData = false;
     $(function () {
-    
+        
         $('.upgrade_account').click(function () {
             $('#upgradeAccount').modal('show');
         });
@@ -154,11 +162,6 @@
             
             if (!error) {
                 
-                $('#pollBtn_' + id).attr("disabled", "disabled").html("Polled");
-                for (var i = 1; i <= 4; i++) {
-					$('#answer' + i + "_" + id).attr("disabled", "disabled").addClass('disabled');
-				}
-				
                 $.ajax({
                     url: SITE_URL + "/polls/answer",
                     type: "POST",
@@ -173,6 +176,11 @@
                         }
                     }
                 });
+                
+                $('#pollBtn_' + id).attr("disabled", "disabled").html("Polled");
+                for (var i = 1; i <= 4; i++) {
+                    //$('#answer' + i + "_" + id).attr("disabled", "disabled").addClass('disabled');
+                }
             } else {
                 $('#pollError_' + id).fadeIn();
             }
