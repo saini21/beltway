@@ -14,7 +14,6 @@
                     <ul>
                         <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'profile']); ?>">Profile</a></li>
                         <li><a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'index']); ?>">My Polls</a></li>
-                        <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'settings']); ?>">Setting</a></li>
                         <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'logout']); ?>">Logout</a></li>
                     </ul>
                 </li>

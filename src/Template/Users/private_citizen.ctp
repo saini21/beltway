@@ -85,10 +85,10 @@
                 <div class="row">
                     <div class="col-lg-11 "></div>
                     <div class="col-lg-1 right-align">
-                        <a class="btn btn-danger right-align" style="margin: -50px 0 0 0;" title="Skip"
+                        <!-- a class="btn btn-danger right-align" style="margin: -50px 0 0 0;" title="Skip"
                            href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'platform']); ?>">
                             <i class="fa fa-times"></i>
-                        </a>
+                        </a -->
                     </div>
                 </div>
                 <form action="javascript:void(0);" method="post" id="formPrivateCitigen">
@@ -191,10 +191,10 @@
                 <div class="row">
                     <div class="col-lg-11 "></div>
                     <div class="col-lg-1 right-align">
-                        <a class="btn btn-danger right-align" style="margin: -50px 0 0 0;"
+                        <!-- a class="btn btn-danger right-align" style="margin: -50px 0 0 0;"
                            href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'dashboard']); ?>">
                             <i class="fa fa-times"></i>
-                        </a>
+                        </a -->
                     </div>
                 </div>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -202,7 +202,7 @@
                     <input type="hidden" name="on0" value="Member Status">
                     <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
 ">
-                    <input type="text" name="return" id="returnUrl" value="<?= SITE_URL ?>/users/private-citizen-api/<?= $authUser['id']; ?>/Citizen">
+                    <input type="hidden" name="return" id="returnUrl" value="<?= SITE_URL ?>/users/private-citizen-api/<?= $authUser['id']; ?>/Citizen">
                     <div class="form-group">
                         <h5> Member Status </h5>
                     </div>
