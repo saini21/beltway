@@ -4,7 +4,7 @@
         <div class="col-md-10">
             
             <div class="about">
-                <h2>About Us:</h2>
+                <h2>About:</h2>
                 <p>
                     <b>Welcome to Beltway Graffiti!</b>  <span style="font-size: 22px; color: red; font-weight: bold; margin-left: 50px">FREE TRIAL PERIOD until October 31, 2018</span><br /><br />
     

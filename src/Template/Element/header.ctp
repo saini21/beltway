@@ -10,7 +10,7 @@
         <nav id="top-nav">
             <ul>
                 <li><a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'contactUs']); ?>">Contact us</a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'aboutUs']); ?>">About us</a></li>
+                <li><a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'aboutUs']); ?>">About</a></li>
                 <li><a href="javascript:void(0);"><?= $authUser['first_name'] ?> <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                     <ul>
                         <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'profile']); ?>">Profile</a></li>

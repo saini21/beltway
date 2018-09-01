@@ -10,7 +10,7 @@
         <nav id="top-nav">
             <ul>
                 <li><a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'contactUs']); ?>">Contact us</a></li>
-                <li><a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'aboutUs']); ?>">About us</a></li>
+                <li><a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'aboutUs']); ?>">About</a></li>
     
                 <?php if($this->request->params['action'] == 'login') {  ?>
                     <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register']); ?>">Register</a></li>
