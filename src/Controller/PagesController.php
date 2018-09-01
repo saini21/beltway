@@ -31,7 +31,7 @@ class PagesController extends AppController {
     
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['aboutUs', 'privacyPolicy', 'termsOfService']);
+        $this->Auth->allow(['aboutUs', 'contactUs', 'privacyPolicy', 'termsOfService']);
     }
     
     /**
@@ -73,6 +73,10 @@ class PagesController extends AppController {
     
     
     public function aboutUs(){
+        //Do Something
+    }
+    
+    public function contactUs(){
         //Do Something
     }
     

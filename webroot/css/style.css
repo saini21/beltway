@@ -248,11 +248,11 @@ header {
 	position: relative;
 }
 .message {
-	width: 70%;
+	width: 80%;
     height: 90px;
     position: fixed;
     top: 0px;
-    left: 300px;
+    left: 10%;
 	text-align: center;
 	line-height: 100px;
 	z-index: 999;
@@ -1208,7 +1208,7 @@ margin-top:40px;
 /* Landscape phones and portrait tablets */
 @media (max-width: 767px) {
  .wrapper {
- background:url(../img/icon-bg-small.png) center left no-repeat;
+ /*background:url(../img/icon-bg-small.png) center left no-repeat;*/
  padding:40px 0;
 }
 .logo {
