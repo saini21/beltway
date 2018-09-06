@@ -1,12 +1,12 @@
-<h3>Create Group</h3>
+<h3>Create Discussion</h3>
 <form action="<?= $this->Url->build(['controller' => 'Chats', 'action' => 'createGroup']); ?>" id="createCHatForm" method="post">
     <br/>
     <div class="row">
         <div class="col-md-1">&nbsp;</div>
         <div class="col-md-10">
-            <label>Group Name (Topic)</label>
+            <label>Topic</label>
             <input type="text" style="height:40px" name="name" class="form-control"/>
-            <label for="name" class="error" style="display: none; margin-top: 10px;">Please enter group name.</label>
+            <label for="name" class="error" style="display: none; margin-top: 10px;">Please enter topic.</label>
         </div>
         <div class="col-lg-1">&nbsp;</div>
     </div>
@@ -14,16 +14,15 @@
     <div class="row">
         <div class="col-md-1">&nbsp;</div>
         <div class="col-md-10">
-            <label>Members</label>
+            <label>Search Members to add</label>
             <input type="text" name="country" class="form-control" id="groupMember"/>
         </div>
     </div>
     <br/>
     
-    
     <div class="row">
         <div class="col-lg-1"></div>
-        <div class="col-lg-11"><h4>Group Members</h4></div>
+        <div class="col-lg-11"><h4>Members</h4></div>
         <div class="col-lg-1"></div>
         <div class="col-lg-6">
             <ul id="selectedMembers">
@@ -44,7 +43,7 @@
         <div class="col-md-1">&nbsp;</div>
         <div class="col-md-10">
             <a href="<?= $this->request->referer(); ?>" class="btn btn-danger pull-right" style=" margin-left: 20px;">Cancel</a>
-            <input type="submit" value="Create Group" class="btn btn-success pull-right">
+            <input type="submit" value="Create Discussion" class="btn btn-success pull-right">
         </div>
     </div>
     <br/>
@@ -113,7 +112,7 @@
             },
             messages: {
                 name: {
-                    required: "Please enter group name."
+                    required: "Please enter topic."
                 }
             }
         });

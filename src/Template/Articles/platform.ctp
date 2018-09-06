@@ -1,6 +1,7 @@
 <div class="col-md-2">
     <?php if ($showBtn) { ?>
-        <div class="create-poll"><a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'create']); ?>">Create Poll</a></div>
+        <div class="create-poll"><a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'create']); ?>">Create
+                Poll</a></div>
     <?php } else { ?>
         <div class="create-poll"><a href="javascript:void(0);" class="upgrade_account">Create Poll</a></div>
     <?php } ?>
@@ -14,22 +15,57 @@
                     <h3><?= ucfirst(strtolower($authUser['first_name'])) ?> <?= ucfirst(strtolower($authUser['last_name'])) ?></h3>
                     <p>Add text and sub title</p>
                 </div>
-                <?php if ($authUser) { ?>
-                    <div class="col-lg-7">
-                        <button id="uploadAgenda">Upload Agenda</button>
-                    </div>
-                <?php } ?>
+                
+                <div class="col-lg-7">
+                    <?php if ($authUser) { ?>
+                        <a href="<?= $this->Url->build(['controller' => 'Chats', 'action' => 'createGroup']); ?>">
+                            <button>Upload Agenda</button>
+                        </a>
+                    <?php } ?>
+                </div>
             </div>
-            <div class="clear"></div>
-            <hr>
-            <div id="atricles"></div>
         </div>
+        <br>
+        <hr>
+        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <form action="javascript:void(0);" id="agendaFormOnPage">
+                    <input type="hidden" name="id" id="articleIdOnPage" value="0"/>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" name="title" class="form-control" placeholder="Topic"
+                                   id="agendaSubjectOnPage">
+                            <label for="agendaSubjectOnPage" class="error" style="margin-top: 10px;"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <textarea type="text" name="content" class="form-control" placeholder="Post"
+                                      id="agendaContentOnPage" style="height:200px;"></textarea>
+                            <label for="agendaContentOnPage" class="error" style="margin-top: 10px;"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="submit" class="btn btn-success pull-right" value="Publish"
+                                   id="publishAgendaBtnOnPage"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <hr>
+        <div id="atricles"></div>
+    
     </div>
 </div>
 <div class="col-md-2">
     <div class="exit-poll">
         <?php if ($showBtn) { ?>
-            <a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'exitPolling']); ?>"><img src="/beltway/img/exit-poll.jpg" alt=""></a>
+            <a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'exitPolling']); ?>"><img
+                    src="/beltway/img/exit-poll.jpg" alt=""></a>
         <?php } else { ?>
             <a href="javascript:void(0)" class="upgrade_account"><img src="/beltway/img/exit-poll.jpg" alt=""></a>
         <?php } ?>
@@ -153,6 +189,43 @@
         });
         
         
+        $("#agendaFormOnPage").validate({
+            rules: {
+                title: {
+                    required: true
+                },
+                content: {
+                    required: true
+                }
+            },
+            messages: {
+                title: {
+                    required: "Please enter agenda subject"
+                },
+                content: {
+                    required: "Please enter agenda description"
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: SITE_URL + "/articles/add-api",
+                    type: "POST",
+                    data: $("#agendaFormOnPage").serialize(),
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.code == 200) {
+                            $('#agendaSubjectOnPage, #agendaContentOnPage').val('');
+                            $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
+                        } else {
+                            $().showFlashMessage("error", response.message);
+                            
+                        }
+                    }
+                });
+                return false;
+            }
+        });
+        
         function getArticles() {
             loadingData = true;
             $.ajax({
@@ -167,8 +240,8 @@
                         $.tmpl("articleTmpl", response.data.articles).appendTo("#atricles");
                         loadingData = false;
                     } else {
-                        if(loadPage > 1){
-                         $("#atricles").append('<h3 class="no-more-records">No more records found</h3>');
+                        if (loadPage > 1) {
+                            $("#atricles").append('<div class="clear"></div><h3 class="no-more-records">No more records found</h3>');
                         } else {
                             $().showFlashMessage("error", response.message);
                         }
@@ -197,7 +270,7 @@
                         $('#agendaSubject').val(response.data.article.title);
                         $('#agendaContent').val(response.data.article.content);
                         $('#articleId').val(response.data.article.id);
-                        $('#publishAgendaBtn').val('Update Agenda');
+                        $('#publishAgendaBtn').val('Update');
                         $('#postArticle').modal('show');
                     } else {
                         $().showFlashMessage("error", response.message);
@@ -211,7 +284,7 @@
             $('#agendaSubject').val('');
             $('#agendaContent').val('');
             $('#articleId').val(0);
-            $('#publishAgendaBtn').val('Publish Agenda');
+            $('#publishAgendaBtn').val('Update');
             $('#postArticle').modal('show');
         });
         
@@ -332,7 +405,7 @@
                 }
             });
         });
-    
+        
         $(window).scroll(function () {
             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
                 if (!loadingData) {
@@ -342,7 +415,6 @@
         });
         
     });
-    
-    
+
 
 </script>
