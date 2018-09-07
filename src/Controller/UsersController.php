@@ -58,7 +58,8 @@ class UsersController extends AppController {
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
-                if ($user['registration_steps_done']) {
+                $daysOld = $this->dateDiff($user['created']->nice());
+                if ($user['registration_steps_done'] || $user['step_crossed'] || $daysOld <= 90) {
                     return $this->redirect($this->Auth->redirectUrl());
                 } else {
                     if ($user['role'] == "Politician") {
@@ -72,6 +73,14 @@ class UsersController extends AppController {
                 $this->Flash->error(__('Invalid username or password, try again'));
             }
         }
+    }
+    
+    private function dateDiff($date){
+        $now = time(); // or your date as well
+        $your_date = strtotime($date);
+        $datediff = $now - $your_date;
+        
+        return round($datediff / (60 * 60 * 24));
     }
     
     /**
@@ -90,7 +99,7 @@ class UsersController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             $user = $this->Users->newEntity();
-                $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'newUser']);
+            $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'newUser']);
             
             if ($this->Users->save($user)) {
                 
@@ -364,7 +373,7 @@ class UsersController extends AppController {
         //Do Something
     }
     
-    public function politicianApi($userId= null) {
+    public function politicianApi($userId = null) {
         $this->autoRender = false;
         
         $user = $this->Users->findById($userId)->first();
@@ -381,7 +390,7 @@ class UsersController extends AppController {
                 
                 $subscriptions->save($subscription);
                 $this->Flash->success(__('Thank you for subscription.'));
-                return $this->redirect(['controller'=>'Articles','action' => 'platform']);
+                return $this->redirect(['controller' => 'Articles', 'action' => 'platform']);
             } else {
                 $this->Flash->success(__('Something went wrong, please try again.'));
                 return $this->redirect(['action' => 'politician']);
@@ -400,7 +409,7 @@ class UsersController extends AppController {
             if (empty($userDetail)) {
                 $userDetail = $userDetails->newEntity();
             }
-    
+            
             $howActiveAreYouInPoliticsOptions = [
                 'Watch the News',
                 'Attend rallies',
@@ -414,9 +423,9 @@ class UsersController extends AppController {
             
             $dataKeys = array_keys($data);
             
-            foreach($howActiveAreYouInPoliticsOptions as $op){
+            foreach ($howActiveAreYouInPoliticsOptions as $op) {
                 $key = str_replace(" ", "_", strtolower($op));
-                if(!in_array($key, $dataKeys)){
+                if (!in_array($key, $dataKeys)) {
                     $data[$key] = false;
                 }
             }
@@ -458,6 +467,21 @@ class UsersController extends AppController {
                 }
             }
         }
+        echo $this->responseFormat();
+    }
+    
+    public function markStepCrossed() {
+        $this->autoRender = false;
+        $this->responseCode = CODE_BAD_REQUEST;
+        $user = $this->Users->findById($this->Auth->user('id'))->first();
+        if ($user) {
+            $user->step_crossed = true;
+            if ($this->Users->save($user)) {
+                $this->responseCode = SUCCESS_CODE;
+                $this->responseMessage = __('Step Crossed Marked');
+            }
+        }
+    
         echo $this->responseFormat();
     }
 }

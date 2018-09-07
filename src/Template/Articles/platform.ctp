@@ -1,11 +1,13 @@
 <div class="col-md-2">
+    <!--
     <?php if ($showBtn) { ?>
         <div class="create-poll"><a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'create']); ?>">Create
                 Poll</a></div>
     <?php } else { ?>
         <div class="create-poll"><a href="javascript:void(0);" class="upgrade_account">Create Poll</a></div>
     <?php } ?>
-
+    -->
+    &nbsp;
 </div>
 <div class="col-md-8">
     <div class="platform">

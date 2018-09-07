@@ -18,6 +18,7 @@
                         <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'logout']); ?>">Logout</a></li>
                     </ul>
                 </li>
+                <li><a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'platform']); ?>">Platform</a></li>
             </ul>
         </nav>
     </div>

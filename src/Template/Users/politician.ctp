@@ -17,7 +17,7 @@
                 <div class="col-lg-11 "><h5> Credentials </h5></div>
                 <div class="col-lg-1 right-align">
                     <a class="btn btn-danger right-align" title="Skip"
-                       href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'platform']); ?>">
+                       href="javascript:void(0);" id="politicianSkipBtn">
                         <i class="fa fa-times"></i>
                     </a>
                 </div>
@@ -222,5 +222,24 @@
             });
             return false;
         }));
+        
+        $('#politicianSkipBtn').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: SITE_URL + "/users/mark-step-crossed",
+                type: "GET",
+                dataType:"JSON",
+                success: function (resp) {
+                    if (resp.code == 200) {
+                        window.location.href = SITE_URL + "/platform";
+                    } else {
+                        // $().showFlashMessage("error", response.message);
+                    }
+            
+                },
+                complete: function () {
+                }
+            });
+        })
     });
 </script>

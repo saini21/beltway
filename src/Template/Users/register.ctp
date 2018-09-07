@@ -3,13 +3,13 @@
 <div class="col-md-6">
     <div class="banner-text">
         <?= $this->Html->image('hand-shake.png', ['alt' => SITE_TITLE]); ?>
-        get involved in targeted and productive political debate <br>
+        Get involved in targeted and productive political debate <br>
         <br>
         <?= $this->Html->image('pensil.png', ['alt' => SITE_TITLE]); ?>
-        safe space for open interaction without fear of personal attacks<br>
+        Safe space for open interaction without fear of personal attacks<br>
         <br>
         <?= $this->Html->image('location.png', ['alt' => SITE_TITLE]); ?>
-        fact verification on all uploaded content
+        User data is secure in a private server and will not be shared.
     </div>
 </div>
 <div class="col-md-5">
@@ -60,8 +60,13 @@
         <?= $this->Form->end() ?>
     </div>
 </div>
+<?= $this->element('free_membership') ?>
 <script>
     $(document).ready(function () {
+        
+        setTimeout(function () {
+            $('#freeMembership').modal('show');
+        }, 1000);
         
         
         $("#registerForm").validate({

@@ -50,6 +50,7 @@ class User extends Entity {
         'registration_steps_done' => true,
         'forgot_password_token' => true,
         'active' => true,
+        'step_crossed' => true,
         'created' => true,
         'modified' => true
     ];
