@@ -9,7 +9,7 @@
         Safe space for open interaction without fear of personal attacks<br>
         <br>
         <?= $this->Html->image('location.png', ['alt' => SITE_TITLE]); ?>
-        User data is secure in a private server and will not be shared.
+        User data is secure in a private server and will not be shared
     </div>
 </div>
 <div class="col-md-5">

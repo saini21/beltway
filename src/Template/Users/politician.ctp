@@ -231,7 +231,7 @@
                 dataType:"JSON",
                 success: function (resp) {
                     if (resp.code == 200) {
-                        window.location.href = SITE_URL + "/platform";
+                        window.location.href = SITE_URL + "/users/logout";
                     } else {
                         // $().showFlashMessage("error", response.message);
                     }

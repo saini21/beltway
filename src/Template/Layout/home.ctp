@@ -50,6 +50,10 @@
 <script>
     $(document).ready(function () {
         $('.message').attr('title', 'Click to Hide');
+        setTimeout(function () {
+            $('.flach-container').fadeOut(2000);
+        }, 4000)
+        
     });
 </script>
 </body>
