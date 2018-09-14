@@ -95,7 +95,7 @@
             //$('#freeMembership').modal('show');
         }, 1000);
         
-        $('#privateCitizen').click(function () {
+        $('#politician').click(function () {
             $('#city, #state').removeClass('pl-bold');
             $("#state").rules("add", {
                 required: false
@@ -107,7 +107,7 @@
             $('#city, #state').next('label').hide();
         });
         
-        $('#politician').click(function () {
+        $('#privateCitizen').click(function () {
             $('#city, #state').addClass('pl-bold');
             $("#state").rules("add", {
                 required: true
