@@ -123,14 +123,12 @@ class UsersTable extends Table {
         $validator
             ->scalar('city')
             ->maxLength('city', 100)
-            ->requirePresence('city', 'create')
-            ->notEmpty('city');
+            ->allowEmpty('city');
         
         $validator
             ->scalar('state')
             ->maxLength('state', 100)
-            ->requirePresence('state', 'create')
-            ->notEmpty('state');
+           ->allowEmpty('state');
         
         $validator
             ->scalar('role')
@@ -216,14 +214,12 @@ class UsersTable extends Table {
         $validator
             ->scalar('city')
             ->maxLength('city', 100)
-            ->requirePresence('city', 'create')
-            ->notEmpty('city');
+            ->allowEmpty('city');
     
         $validator
             ->scalar('state')
             ->maxLength('state', 100)
-            ->requirePresence('state', 'create')
-            ->notEmpty('state');
+            ->allowEmpty('state');
     
         $validator
             ->scalar('role')
@@ -312,14 +308,12 @@ class UsersTable extends Table {
         $validator
             ->scalar('city')
             ->maxLength('city', 100)
-            ->requirePresence('city', 'create')
-            ->notEmpty('city');
+            ->allowEmpty('city');
     
         $validator
             ->scalar('state')
             ->maxLength('state', 100)
-            ->requirePresence('state', 'create')
-            ->notEmpty('state');
+            ->allowEmpty('state');
     
         $validator
             ->scalar('role')

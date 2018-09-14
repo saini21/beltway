@@ -85,13 +85,8 @@
                 },
                 password: {
                     required: true
-                },
-                state: {
-                    required: true
-                },
-                city: {
-                    required: true
                 }
+               
             },
             messages: {
                 role: {
@@ -109,12 +104,6 @@
                 },
                 password: {
                     required: "Please enter password."
-                },
-                state: {
-                    required: "Please enter your state."
-                },
-                city: {
-                    required: "Please enter your city."
                 }
             }
         });
