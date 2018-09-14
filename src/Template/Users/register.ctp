@@ -1,4 +1,30 @@
 <?php $this->assign('title', __('Register')); ?>
+<style>
+    .pl-bold::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        font-weight: bold;
+    }
+    
+    .pl-bold:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        font-weight: bold;
+    }
+    
+    .pl-bold::-moz-placeholder { /* Mozilla Firefox 19+ */
+        font-weight: bold;
+    }
+    
+    .pl-bold:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        font-weight: bold;
+    }
+    
+    .pl-bold::-ms-input-placeholder { /* Microsoft Edge */
+        font-weight: bold;
+    }
+    
+    .pl-bold::placeholder { /* Most modern browsers support this now. */
+        font-weight: bold;
+    }
+
+</style>
 <div class="col-md-1"></div>
 <div class="col-md-6">
     <div class="banner-text">
@@ -24,32 +50,33 @@
                 <input type="radio" name="role" id="politician" value="Politician">
                 <label for="politician"> Politician </label>
             </div>
-            <label for="role" class="error" style="display: none; margin: 0 auto 10px 65px;">Please select your type.</label>
+            <label for="role" class="error" style="display: none; margin: 0 auto 10px 65px;">Please select your
+                type.</label>
         </div>
         <div class="form-group">
             <div class="col-md-6">
-                <?= $this->Form->input('first_name', ['class' => 'form-control place-me', 'label' => false, 'placeholder' => 'First Name']) ?>
+                <?= $this->Form->input('first_name', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'First Name']) ?>
             </div>
             <div class="col-md-6">
-                <?= $this->Form->input('last_name', ['class' => 'form-control place-me', 'label' => false, 'placeholder' => 'Last Name']) ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-12">
-                <?= $this->Form->input('email', ['class' => 'form-control place-me', 'type' => 'text', 'label' => false, 'placeholder' => 'Email']) ?>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-6">
-                <?= $this->Form->input('state', ['class' => 'form-control place-me', 'label' => false, 'placeholder' => 'State']) ?>
-            </div>
-            <div class="col-md-6">
-                <?= $this->Form->input('city', ['class' => 'form-control place-me', 'label' => false, 'placeholder' => 'City']) ?>
+                <?= $this->Form->input('last_name', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'Last Name']) ?>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-12">
-                <?= $this->Form->input('password', ['class' => 'form-control place-me', 'label' => false, 'placeholder' => 'Password']) ?>
+                <?= $this->Form->input('email', ['class' => 'form-control place-me pl-bold', 'type' => 'text', 'label' => false, 'placeholder' => 'Email']) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-6">
+                <?= $this->Form->input('state', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'State']) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $this->Form->input('city', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'City']) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <?= $this->Form->input('password', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'Password']) ?>
             </div>
         </div>
         <div class="form-group">
@@ -65,15 +92,37 @@
     $(document).ready(function () {
         
         setTimeout(function () {
-            $('#freeMembership').modal('show');
+            //$('#freeMembership').modal('show');
         }, 1000);
+        
+        $('#privateCitizen').click(function () {
+            $('#city, #state').removeClass('pl-bold');
+            $("#state").rules("add", {
+                required: false
+            });
+            $("#city").rules("add", {
+                required: false
+            });
+    
+            $('#city, #state').next('label').hide();
+        });
+        
+        $('#politician').click(function () {
+            $('#city, #state').addClass('pl-bold');
+            $("#state").rules("add", {
+                required: true
+            });
+            $("#city").rules("add", {
+                required: true
+            });
+        });
         
         
         $("#registerForm").validate({
             rules: {
                 role: {
                     required: true
-                },first_name: {
+                }, first_name: {
                     required: true
                 },
                 last_name: {
@@ -85,8 +134,14 @@
                 },
                 password: {
                     required: true
+                },
+                city: {
+                    required: true
+                },
+                state: {
+                    required: true
                 }
-               
+                
             },
             messages: {
                 role: {
@@ -104,6 +159,12 @@
                 },
                 password: {
                     required: "Please enter password."
+                },
+                city: {
+                    required: "Please enter city."
+                },
+                state: {
+                    required: "Please enter state."
                 }
             }
         });

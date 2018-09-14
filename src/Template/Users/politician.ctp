@@ -101,7 +101,7 @@
 				<img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 			</form -->
 
-            
+            <?php if($daysOld <= 90){ ?>
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="on0" value="Member Status">
@@ -139,6 +139,7 @@
                          height="1">
                 </div>
             </form>
+            <?php } ?>
         </div>
     </div>
 </div>

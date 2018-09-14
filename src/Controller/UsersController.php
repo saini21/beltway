@@ -371,6 +371,11 @@ class UsersController extends AppController {
     
     public function politician() {
         //Do Something
+        $authUser = $this->Auth->user();
+        $daysOld = $this->dateDiff($authUser['created']->nice());
+        
+        $this->set('daysOld', $daysOld);
+        
     }
     
     public function politicianApi($userId = null) {
