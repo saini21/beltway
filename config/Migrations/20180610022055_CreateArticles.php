@@ -1,8 +1,8 @@
 <?php
+
 use Migrations\AbstractMigration;
 
-class CreateArticles extends AbstractMigration
-{
+class CreateArticles extends AbstractMigration {
     /**
      * Change Method.
      *
@@ -10,8 +10,7 @@ class CreateArticles extends AbstractMigration
      * http://docs.phinx.org/en/latest/migrations.html#the-change-method
      * @return void
      */
-    public function change()
-    {
+    public function change() {
         $table = $this->table('articles');
         $table->addColumn('user_id', 'biginteger', [
             'default' => null,
@@ -27,6 +26,37 @@ class CreateArticles extends AbstractMigration
             'default' => null,
             'null' => false,
         ]);
+    
+        $table->addColumn('link', 'string', [
+            'default' => '',
+            'limit' => 255,
+            'null' => false,
+        ]);
+    
+        $table->addColumn('link_host', 'string', [
+            'default' => '',
+            'limit' => 255,
+            'null' => false,
+        ]);
+    
+        $table->addColumn('link_title', 'string', [
+            'default' => '',
+            'limit' => 255,
+            'null' => false,
+        ]);
+    
+        $table->addColumn('link_image', 'string', [
+            'default' => '',
+            'limit' => 255,
+            'null' => false,
+        ]);
+    
+        $table->addColumn('link_description', 'text', [
+            'default' => null,
+            'null' => false,
+        ]);
+        
+        
         $table->addColumn('like_count', 'integer', [
             'default' => null,
             'limit' => 11,

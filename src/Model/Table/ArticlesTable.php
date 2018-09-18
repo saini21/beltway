@@ -75,6 +75,24 @@ class ArticlesTable extends Table {
             ->scalar('content')
             ->requirePresence('content', 'create')
             ->notEmpty('content');
+    
+        $validator
+            ->scalar('link')
+            ->allowEmpty('link');
+    
+        $validator
+            ->scalar('link_host')
+            ->allowEmpty('link_host');
+    
+        $validator
+            ->scalar('link_title')
+            ->allowEmpty('link_title');
+        $validator
+            ->scalar('link_image')
+            ->allowEmpty('link_image');
+        $validator
+            ->scalar('link_description')
+            ->allowEmpty('link_description');
         
         $validator
             ->integer('like_count')

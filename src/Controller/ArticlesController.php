@@ -13,12 +13,23 @@ use App\Controller\AppController;
  */
 class ArticlesController extends AppController {
     
+    
+    /*
+     * ALTER TABLE  `articles` ADD  `link` VARCHAR( 255 ) NOT NULL  AFTER  `content` ;
+     * ALTER TABLE  `articles` ADD  `link_host` VARCHAR( 255 ) NOT NULL AFTER  `link` ;
+     * ALTER TABLE  `articles` ADD  `link_title` VARCHAR( 255 ) NOT NULL AFTER  `link_host` ;
+     * ALTER TABLE  `articles` ADD  `link_image` VARCHAR( 255 ) NOT NULL AFTER  `link_title` ;
+     * ALTER TABLE  `articles` ADD  `link_description` TEXT NOT NULL AFTER  `link_image` ;
+     *
+     */
+    
     /**
      * Index method
      *
      * @return \Cake\Http\Response|void
      */
     public function platform() {
+    
         $showBtn = false;
         $authUser = $this->Auth->user();
         
@@ -67,6 +78,10 @@ class ArticlesController extends AppController {
         echo $this->responseFormat();
         exit;
     }
+    
+    
+    
+    
     
     /**
      * Index method
@@ -263,9 +278,53 @@ class ArticlesController extends AppController {
         echo $this->responseFormat();
     }
     
+    
+    public function urlExists(){
+        $this->autoRender = false;
+    
+        $this->responseCode = CODE_BAD_REQUEST;
+    
+        $text = $this->request->data['q'];
+    
+        //FIND URLS INSIDE TEXT
+        //The Regular Expression filter
+        $regExpUrl = "/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))/";
+    
+        // Check if there is a url in the text
+        if(preg_match($regExpUrl, $text, $url)) {
+            if(!empty($url)) {
+                $this->responseData['url_exists'] = true;
+                $this->responseData['link'] = (strpos($url[0], ":") === false) ? 'http://' . $url[0] : $url[0];
+                $this->responseCode = SUCCESS_CODE;
+            }
+        }
+    
+        echo $this->responseFormat();
+    }
+    
+    public function fetchPreview(){
+    
+        $this->autoRender = false;
+        $this->responseData['url_exists'] = false;
+        $this->responseCode = CODE_BAD_REQUEST;
+    
+        $url = $this->request->data['url'];
+    
+        $this->loadComponent('FetchUrlPreview');
+        $this->responseData = $this->FetchUrlPreview->fetch($url);
+        if($this->responseData) {
+            $this->responseCode = SUCCESS_CODE;
+        }
+    
+        echo $this->responseFormat();
+        
+        
+    }
+    
     private function __getLikeCount($articlesId) {
         return $this->Articles->find()->select(['Articles.like_count'])->where(['Articles.id' => $articlesId])->first();
     }
     
     
 }
+

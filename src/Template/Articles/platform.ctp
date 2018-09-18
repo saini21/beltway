@@ -49,7 +49,28 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-10">
+                            <div id="urlPreview">
+                                <div class="row">
+                                    <div class="col-lg-4" id="previewImage">
+                                        <img src="" style="width: 100%; float: left;"/>
+                                        <input type="hidden" name="link_image" class="link-fields" id="linkImage"
+                                               style="margin-top: 10px;"/>
+                                    </div>
+                                    <div class="col-lg-8" id="previewDetails">
+                                        <input type="hidden" name="link" class="link-fields" id="link"/>
+                                        <input type="hidden" name="link_host" class="link-fields" id="linkHost"/>
+                                        <input type="hidden" name="link_title" class="link-fields" id="linkTitle"/>
+                                        <input type="hidden" name="link_description" class="link-fields"
+                                               id="linkDescription"/>
+                                        <h5 id="siteBaseUrl"></h5>
+                                        <h4 id="siteTitle"></h4>
+                                        <p id="siteDescription"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
                             <input type="submit" class="btn btn-success pull-right" value="Publish"
                                    id="publishAgendaBtnOnPage"/>
                         </div>
@@ -100,6 +121,21 @@
                 </div>
             </div>
             <p id="articleContentBox_${id}">{{html content}}</p>
+            
+            <div style="display: {%if link.length %}block{%else%}none{%/if%}; border: 1px solid #ababab; margin: 3% 0% 0 3%; float:left; width: 96%;">
+                <a href="${link}" target="_blank">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <img src="${link_image}" style="width: 100%; float: left; margin: 10%"/>
+                        </div>
+                        <div class="col-lg-8">
+                            <h5 style="margin-left: 5%;">${link_host}</h5>
+                            <h4>${link_title}</h4>
+                            <p style="width: 95%;">${link_description}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
             
             <div class="comment-section">
                 <div class="row">
@@ -216,7 +252,9 @@
                     dataType: "json",
                     success: function (response) {
                         if (response.code == 200) {
-                            $('#agendaSubjectOnPage, #agendaContentOnPage').val('');
+                            $('#previewImage img').attr('src', '');
+                            $('#siteBaseUrl, #siteTitle, #siteDescription').html('');
+                            $('#agendaSubjectOnPage, #agendaContentOnPage, .link-fields').val('');
                             $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
                         } else {
                             $().showFlashMessage("error", response.message);
@@ -414,6 +452,69 @@
                     getArticles();
                 }
             }
+        });
+        
+        
+        var progress = null;
+        $('#agendaContentOnPage').keyup(function () {
+            var q = $(this).val();
+            progress = $.ajax({
+                type: 'POST',
+                data: 'q=' + q,
+                url: SITE_URL + "/articles/url-exists/",
+                dataType: "JSON",
+                beforeSend: function () {
+                    //checking progress status and aborting pending request if any
+                    if (progress != null) {
+                        progress.abort();
+                    }
+                },
+                success: function (response) {
+                    if (response.code == 200) {
+                        
+                        $.ajax({
+                            type: 'POST',
+                            data: 'url=' + response.data.link,
+                            dataType: "JSON",
+                            url: SITE_URL + "/articles/fetch-preview/",
+                            beforeSend: function () {
+                                $('#siteBaseUrl').html('Fetching Preview...');
+                                $('#previewImage img').attr('src', '');
+                                $('#siteTitle, #siteDescription').html('');
+                                $('.link-fields').val('');
+                            },
+                            success: function (resp) {
+                                if (resp.code == 200) {
+                                    if (typeof  resp.data.alternate_image != undefined) {
+                                        $('#previewImage img').attr('src', resp.data.alternate_image);
+                                    }
+                                    
+                                    if (typeof  resp.data.image != undefined) {
+                                        $('#previewImage img').attr('src', resp.data.image);
+                                    }
+                                    $('#siteBaseUrl').html(resp.data.host);
+                                    $('#siteTitle').html(resp.data.title);
+                                    $('#siteDescription').html(resp.data.description);
+                                    
+                                    //
+                                    $('#link').val(resp.data.url);
+                                    $('#linkHost').val(resp.data.host);
+                                    $('#linkTitle').val(resp.data.title);
+                                    $('#linkDescription').val(resp.data.description);
+                                    $('#linkImage').val(resp.data.image);
+                                }
+                            }
+                        });
+                        
+                    } else {
+                        //Do Somethig
+                    }
+                },
+                complete: function () {
+                    // after ajax xomplets progress set to null
+                    progress = null;
+                }
+            });
         });
         
     });
