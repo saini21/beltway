@@ -37,15 +37,15 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <input type="text" name="title" class="form-control" placeholder="Topic"
-                                   id="agendaSubjectOnPage">
-                            <label for="agendaSubjectOnPage" class="error" style="margin-top: 10px;"></label>
+                                   id="agendaSubjectOnPage" style="margin-bottom: 10px;">
+                            <label for="agendaSubjectOnPage" class="error" style="margin-bottom:10px; display: none;"></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <textarea type="text" name="content" class="form-control" placeholder="Post"
-                                      id="agendaContentOnPage" style="height:200px;"></textarea>
-                            <label for="agendaContentOnPage" class="error" style="margin-top: 10px;"></label>
+                                      id="agendaContentOnPage" style="height:200px; margin-bottom:10px;"></textarea>
+                            <label for="agendaContentOnPage" class="error" style="margin-bottom:10px; display: none;"></label>
                         </div>
                     </div>
                     <div class="row">
