@@ -88,12 +88,12 @@ class FetchUrlPreviewComponent extends Component {
                     
                     
                     list($width, $height) = getimagesize($finalImageUrl);
-                    if ($width >= 200 && $height >= 200) {
+                    if ($width >= 200) {
                         $response['image'] = $finalImageUrl;
                         break;
                     }
                     
-                    if ($response['alternate_image'] == SITE_URL . "/img/preview.png" && ($width >= 100 && $height >= 100)) {
+                    if ($response['alternate_image'] == SITE_URL . "/img/preview.png") {
                         $response['alternate_image'] = $finalImageUrl;
                     }
                     
