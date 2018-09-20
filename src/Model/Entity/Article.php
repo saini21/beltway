@@ -35,6 +35,7 @@ class Article extends Entity {
         'user_id' => true,
         'title' => true,
         'content' => true,
+        'article_image' => true,
         'link' => true,
         'link_host' => true,
         'link_title' => true,

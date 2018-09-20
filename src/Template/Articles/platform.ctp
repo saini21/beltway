@@ -32,24 +32,55 @@
         <br>
         <div class="row">
             <div class="col-lg-12">
-                <form action="javascript:void(0);" id="agendaFormOnPage">
+                <form action="javascript:void(0);" id="agendaFormOnPage" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="articleIdOnPage" value="0"/>
                     <div class="row">
                         <div class="col-lg-12">
                             <input type="text" name="title" class="form-control" placeholder="Topic"
                                    id="agendaSubjectOnPage" style="margin-bottom: 10px;">
-                            <label for="agendaSubjectOnPage" class="error" style="margin-bottom:10px; display: none;"></label>
+                            <label for="agendaSubjectOnPage" class="error"
+                                   style="margin-bottom:10px; display: none;"></label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <textarea type="text" name="content" class="form-control" placeholder="Post"
                                       id="agendaContentOnPage" style="height:200px; margin-bottom:10px;"></textarea>
-                            <label for="agendaContentOnPage" class="error" style="margin-bottom:10px; display: none;"></label>
+                            <label for="agendaContentOnPage" class="error"
+                                   style="margin-bottom:10px; display: none;"></label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-10">
+                        <div class="col-lg-6 text-right" id="selectedFile" style="color: #337ab7">
+                            &nbsp;
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="submit" class="btn btn-success pull-right" value="Publish"
+                                   id="publishAgendaBtnOnPage"/>
+                            
+                            <div style="height:0px;overflow:hidden">
+                                <input type="file" id="fileInput" name="atricle_image"/>
+                            </div>
+                            <button type="button" onclick="chooseFile();" class="btn btn-primary pull-right"
+                                    style="margin-right:20px; "><i
+                                    class="fa fa-image"></i> Photo
+                            </button>
+                            
+                            <script>
+                                function chooseFile() {
+                                    document.getElementById("fileInput").click();
+                                }
+                            
+                            </script>
+                            <br/>
+                            <label class="pull-right" id="photoError" style="display: none; margin-top: 10px; ont-weight: normal; color: #F20034; line-height: 0px;
+    font-size: 12px; font-family: "Open Sans", sans-serif;">Only formats are allowed : jpeg, jpg, png, gif.</label>
+                        
+                        
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
                             <div id="urlPreview">
                                 <div class="row">
                                     <div class="col-lg-4" id="previewImage">
@@ -69,10 +100,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-2">
-                            <input type="submit" class="btn btn-success pull-right" value="Publish"
-                                   id="publishAgendaBtnOnPage"/>
                         </div>
                     </div>
                 </form>
@@ -109,6 +136,11 @@
         <div class="post-user"><img src="<?= PROFILE_IMAGE_PATH ?>thumbnail-${user.profile_image}" alt=""></div>
         <div class="post-content">
             <div class="row">
+                <div class="col-lg-12">
+                    <img src="<?= ARTICLE_IMAGE_PATH ?>${article_image}" style="width: 90%; margin:0 5% 2% 5%; display: {%if article_image.length %}block{%else%}none{%/if%};" />
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-10"><h4 id="articleTitleBox_${id}">${title}</h4></div>
                 <div class="col-lg-2">
                     <?php if ($showBtn) { ?>
@@ -122,7 +154,8 @@
             </div>
             <p id="articleContentBox_${id}">{{html content}}</p>
             
-            <div style="display: {%if link.length %}block{%else%}none{%/if%}; border: 1px solid #ababab; margin: 3% 0% 0 3%; float:left; width: 96%;">
+            <div
+                style="display: {%if link.length %}block{%else%}none{%/if%}; border: 1px solid #ababab; margin: 3% 0% 0 3%; float:left; width: 96%;">
                 <a href="${link}" target="_blank">
                     <div class="row">
                         <div class="col-lg-4">
@@ -179,7 +212,20 @@
 <script type="text/javascript">
     var loadPage = 1;
     var loadingData = false;
+    var photoTypeError = false;
     $(function () {
+        
+        $("#fileInput").change(function () {
+            $('#selectedFile').html("<b>Selected File: </b>" + $(this).val());
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
+            if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                $('#photoError').fadeIn();
+                photoTypeError = true;
+            } else {
+                $('#photoError').fadeOut();
+                photoTypeError = false;
+            }
+        });
         
         $("#agendaForm").validate({
             rules: {
@@ -188,7 +234,7 @@
                 },
                 content: {
                     required: true
-                }
+                },
             },
             messages: {
                 title: {
@@ -199,30 +245,33 @@
                 }
             },
             submitHandler: function (form) {
-                $.ajax({
-                    url: SITE_URL + "/articles/add-api",
-                    type: "POST",
-                    data: $("#agendaForm").serialize(),
-                    dataType: "json",
-                    success: function (response) {
-                        var ArticleId = $('#articleId').val();
-                        
-                        if (response.code == 200) {
-                            $('#postArticle').modal('hide');
-                            $('articleId').val('0');
-                            if (ArticleId == 0) {
-                                $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
-                            } else {
-                                $('#articleTitleBox_' + ArticleId).html(response.data.article.title);
-                                $('#articleContentBox_' + ArticleId).html(response.data.article.content);
-                            }
-                        } else {
-                            $().showFlashMessage("error", response.message);
+                
+                if (!photoTypeError) {
+                    $.ajax({
+                        url: SITE_URL + "/articles/add-api",
+                        type: "POST",
+                        data: $("#agendaForm").serialize(),
+                        dataType: "json",
+                        success: function (response) {
+                            var ArticleId = $('#articleId').val();
                             
+                            if (response.code == 200) {
+                                $('#postArticle').modal('hide');
+                                $('articleId').val('0');
+                                if (ArticleId == 0) {
+                                    $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
+                                } else {
+                                    $('#articleTitleBox_' + ArticleId).html(response.data.article.title);
+                                    $('#articleContentBox_' + ArticleId).html(response.data.article.content);
+                                }
+                            } else {
+                                $().showFlashMessage("error", response.message);
+                                
+                            }
                         }
-                    }
-                });
-                return false;
+                    });
+                    return false;
+                }
             }
         });
         
@@ -245,25 +294,44 @@
                 }
             },
             submitHandler: function (form) {
-                $.ajax({
-                    url: SITE_URL + "/articles/add-api",
-                    type: "POST",
-                    data: $("#agendaFormOnPage").serialize(),
-                    dataType: "json",
-                    success: function (response) {
-                        if (response.code == 200) {
-                            $('#previewImage img').attr('src', '');
-                            $('#siteBaseUrl, #siteTitle, #siteDescription').html('');
-                            $('#agendaSubjectOnPage, #agendaContentOnPage, .link-fields').val('');
-                            $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
-                        } else {
-                            $().showFlashMessage("error", response.message);
-                            
+                
+                var formData = new FormData();
+                formData.append('id', $('#articleIdOnPage').val());
+                formData.append('title', $('#agendaSubjectOnPage').val());
+                formData.append('content', $('#agendaContentOnPage').val());
+                formData.append('link', $('#link').val());
+                formData.append('link_host', $('#linkHost').val());
+                formData.append('link_title', $('#linkTitle').val());
+                formData.append('link_description', $('#linkDescription').val());
+                formData.append('link_image', $('#linkImage').val());
+                formData.append('article_image', $('input[type=file]')[0].files[0]);
+    
+                console.log(JSON.stringify(new FormData));
+    
+                if (!photoTypeError) {
+                    $.ajax({
+                        url: SITE_URL + "/articles/add-api",
+                        type: "POST",
+                        data: formData,
+                        dataType: "json",
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            if (response.code == 200) {
+                                $('#previewImage img').attr('src', '');
+                                $('#siteBaseUrl, #siteTitle, #siteDescription').html('');
+                                $('#agendaSubjectOnPage, #agendaContentOnPage, .link-fields').val('');
+                                $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
+                            } else {
+                                $().showFlashMessage("error", response.message);
+                                
+                            }
                         }
-                    }
-                });
-                return false;
+                    });
+                    return false;
+                }
             }
+            
         });
         
         function getArticles() {

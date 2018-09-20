@@ -27,6 +27,12 @@ class CreateArticles extends AbstractMigration {
             'null' => false,
         ]);
     
+        $table->addColumn('article_image', 'string', [
+            'default' => '',
+            'limit' => 255,
+            'null' => false,
+        ]);
+        
         $table->addColumn('link', 'string', [
             'default' => '',
             'limit' => 255,
