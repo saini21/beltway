@@ -35,9 +35,10 @@ class SocketioShell extends Shell {
                 $message = is_array($eventData) ? $eventData : json_decode($eventData, true);
                 $this->authToken = $message['auth_token'];
                 $this->getCakeClient();
+file_put_contents('/var/www/html/webroot/files/message.txt', print_r($message, true));
                 $response = $this->http->post(SITE_URL . '/chats/newMessage', $message);
                 $data = json_decode($response->body(), true);
-                file_put_contents('/var/www/html/beltway/webroot/test.txt', print_r($data, true));
+                file_put_contents('/var/www/html/webroot/files/data.txt', print_r($data, true));
                 $this->io->to($message['room'])->emit('new_message', $data['data']['message']);
             });
             
