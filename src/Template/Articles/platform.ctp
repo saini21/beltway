@@ -135,11 +135,7 @@
     <div class="post-section" id="article_${id}">
         <div class="post-user"><img src="<?= PROFILE_IMAGE_PATH ?>thumbnail-${user.profile_image}" alt=""></div>
         <div class="post-content">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img src="<?= ARTICLE_IMAGE_PATH ?>${article_image}" style="width: 90%; margin:0 5% 2% 5%; display: {%if article_image.length %}block{%else%}none{%/if%};" />
-                </div>
-            </div>
+            
             <div class="row">
                 <div class="col-lg-10"><h4 id="articleTitleBox_${id}">${title}</h4></div>
                 <div class="col-lg-2">
@@ -152,6 +148,13 @@
                     <?php } ?>
                 </div>
             </div>
+            <br />
+            <div class="row">
+                <div class="col-lg-12">
+                    <img src="<?= ARTICLE_IMAGE_PATH ?>${article_image}" style="width: 96%; margin:0 0% 1% 3%; display: {%if article_image.length %}block{%else%}none{%/if%};" />
+                </div>
+            </div>
+            
             <p id="articleContentBox_${id}">{{html content}}</p>
             
             <div
