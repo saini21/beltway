@@ -151,7 +151,7 @@
             <br />
             <div class="row">
                 <div class="col-lg-12">
-                    <img src="<?= ARTICLE_IMAGE_PATH ?>${article_image}" style="width: 96%; margin:0 0% 1% 3%; display: {%if article_image.length %}block{%else%}none{%/if%};" />
+                    <img src="{%if article_image.length %}<?= ARTICLE_IMAGE_PATH ?>${article_image}{%/if%}" style="width: 96%; margin:0 0% 1% 3%; display: {%if article_image.length %}block{%else%}none{%/if%};" />
                 </div>
             </div>
             
@@ -219,7 +219,8 @@
     $(function () {
         
         $("#fileInput").change(function () {
-            $('#selectedFile').html("<b>Selected File: </b>" + $(this).val());
+			var file = document.getElementById('fileInput');
+            $('#selectedFile').html("<b>Selected File: </b>" + file.files.item(0).name);
             var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
             if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
                 $('#photoError').fadeIn();
@@ -322,8 +323,9 @@
                         success: function (response) {
                             if (response.code == 200) {
                                 $('#previewImage img').attr('src', '');
-                                $('#siteBaseUrl, #siteTitle, #siteDescription').html('');
+                                $('#siteBaseUrl, #siteTitle, #siteDescription, #selectedFile').html('');
                                 $('#agendaSubjectOnPage, #agendaContentOnPage, .link-fields').val('');
+                                document.getElementById("agendaFormOnPage").reset();
                                 $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
                             } else {
                                 $().showFlashMessage("error", response.message);

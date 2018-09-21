@@ -127,12 +127,16 @@ class ArticlesController extends AppController {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
         if ($this->request->is('post')) {
+			
             if ($this->request->data['id'] == "0") {
                 $article = $this->Articles->newEntity();
             } else {
-                
                 $article = $this->Articles->find('all', ['conditions' => ['id' => $this->request->data['id'], 'user_id' => $this->Auth->user('id')]])->first();
             }
+            
+            if($this->request->data['article_image'] == "undefined"){
+				unset($this->request->data['article_image']);
+			}
             
             $article->user_id = $this->Auth->user('id');
             $article = $this->Articles->patchEntity($article, $this->request->getData());
