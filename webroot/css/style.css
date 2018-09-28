@@ -12,7 +12,7 @@
 }
 
 body {
-	background:#fff;
+    background:url(../img/icon-bg.png) center left fixed no-repeat;
     font-family: simsunregular !important;
 }
 * {
@@ -203,7 +203,7 @@ header {
 	color:#fff;
 }
 .wrapper {
-	background:url(../img/icon-bg.png) center left  no-repeat;
+
 	padding:60px 0 0 0;
 	margin-top:60px;
     min-height: 700px;
