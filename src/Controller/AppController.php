@@ -49,7 +49,7 @@ class AppController extends Controller {
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Cookie');
-    
+        
         $this->loadComponent('Auth', [
             'userModel' => 'Users',
             'authenticate' => [
@@ -93,7 +93,7 @@ class AppController extends Controller {
     public function responseFormat() {
         $returnArray = [
             "code" => $this->responseCode,
-            "message"=> $this->responseMessage,
+            "message" => $this->responseMessage,
         ];
         if ($this->currentPage > 0) {
             $this->responseData['currentPage'] = $this->currentPage;
@@ -102,8 +102,8 @@ class AppController extends Controller {
         if (isset($this->responseData['total'])) {
             $this->responseData['pages'] = ceil($this->responseData['total'] / PAGE_LIMIT);
         }
-    
-        $returnArray['data'] =  !empty($this->responseData) ? $this->responseData : ['message' => 'Data not found'];
+        
+        $returnArray['data'] = !empty($this->responseData) ? $this->responseData : ['message' => 'Data not found'];
         
         return json_encode($returnArray);
     }
@@ -123,5 +123,62 @@ class AppController extends Controller {
     public function getCurrentPage() {
         $this->currentPage = (!empty($this->request->query['page']) && $this->request->query['page'] > 0) ? $this->request->query['page'] : 1;
         return $this->currentPage;
+    }
+    
+    public function usaStates() {
+        return
+            [
+                'Alabama' => 'Alabama',
+                'Alaska' => 'Alaska',
+                'Arizona' => 'Arizona',
+                'Arkansas' => 'Arkansas',
+                'California' => 'California',
+                'Colorado' => 'Colorado',
+                'Connecticut' => 'Connecticut',
+                'Delaware' => 'Delaware',
+                'District Of Columbia' => 'District Of Columbia',
+                'Florida' => 'Florida',
+                'Georgia' => 'Georgia',
+                'Hawaii' => 'Hawaii',
+                'Idaho' => 'Idaho',
+                'Illinois' => 'Illinois',
+                'Indiana' => 'Indiana',
+                'Iowa' => 'Iowa',
+                'Kansas' => 'Kansas',
+                'Kentucky' => 'Kentucky',
+                'Louisiana' => 'Louisiana',
+                'Maine' => 'Maine',
+                'Maryland' => 'Maryland',
+                'Massachusetts' => 'Massachusetts',
+                'Michigan' => 'Michigan',
+                'Minnesota' => 'Minnesota',
+                'Mississippi' => 'Mississippi',
+                'Missouri' => 'Missouri',
+                'Montana' => 'Montana',
+                'Nebraska' => 'Nebraska',
+                'Nevada' => 'Nevada',
+                'New Hampshire' => 'New Hampshire',
+                'New Jersey' => 'New Jersey',
+                'New Mexico' => 'New Mexico',
+                'New York' => 'New York',
+                'North Carolina' => 'North Carolina',
+                'North Dakota' => 'North Dakota',
+                'Ohio' => 'Ohio',
+                'Oklahoma' => 'Oklahoma',
+                'Oregon' => 'Oregon',
+                'Pennsylvania' => 'Pennsylvania',
+                'Rhode Island' => 'Rhode Island',
+                'South Carolina' => 'South Carolina',
+                'South Dakota' => 'South Dakota',
+                'Tennessee' => 'Tennessee',
+                'Texas' => 'Texas',
+                'Utah' => 'Utah',
+                'Vermont' => 'Vermont',
+                'Virginia' => 'Virginia',
+                'Washington' => 'Washington',
+                'West Virginia' => 'West Virginia',
+                'Wisconsin' => 'Wisconsin',
+                'Wyoming' => 'Wyoming',
+            ];
     }
 }

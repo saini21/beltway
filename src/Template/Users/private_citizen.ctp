@@ -80,7 +80,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div class="pc">
-            <h4>Private Citizen</h4>
+            <h4>Electorate</h4>
             <div class="form-part-one">
                 <div class="row">
                     <div class="col-lg-11 "></div>

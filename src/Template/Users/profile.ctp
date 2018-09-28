@@ -39,7 +39,7 @@
 </div>
 <div class="form-group">
     <div class="col-md-6">
-        <?= $this->Form->input('state', ['class' => 'form-control place-me', 'placeholder' => 'State']) ?>
+        <?= $this->Form->input('state', ['class' => 'form-control place-me pl-bold', 'type'=>'select', 'options'=>$usaStates, 'empty'=>'Select State']) ?>
     </div>
     <div class="col-md-6">
         <?= $this->Form->input('city', ['class' => 'form-control place-me', 'placeholder' => 'City']) ?>
@@ -62,7 +62,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div class="pc">
-            <h4>Private Citizen - <?= (empty($authUser['user_type'])) ? "Not a Member" : $authUser['user_type'] ?></h4>
+            <h4>Electorate - <?= (empty($authUser['user_type'])) ? "Not a Member" : $authUser['user_type'] ?></h4>
             <div class="form-part-one pulbox">
                 <div class="row">
                     <div class="col-lg-11 "></div>

@@ -12,10 +12,10 @@
                 <li><a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'contactUs']); ?>">Contact us</a></li>
                 <li><a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'aboutUs']); ?>">About</a></li>
     
-                <?php if($this->request->params['action'] == 'login') {  ?>
-                    <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register']); ?>">Register</a></li>
-                <?php } else { ?>
+                <?php if($this->request->params['action'] == 'register') {  ?>
                     <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'login']); ?>">Login</a></li>
+                <?php } else { ?>
+                    <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register']); ?>">Register</a></li>
                 <?php } ?>
                 
             </ul>

@@ -94,6 +94,9 @@ class UsersController extends AppController {
             return $this->redirect($this->Auth->redirectUrl());
         }
         
+        $usaStates = $this->usaStates();
+        $this->set('usaStates', $usaStates);
+        
     }
     
     public function add() {
@@ -278,6 +281,10 @@ class UsersController extends AppController {
         $user = $this->Users->get($this->Auth->user('id'));
         
         $user['password'] = "";
+    
+    
+        $usaStates = $this->usaStates();
+        $this->set('usaStates', $usaStates);
         
         $this->set(compact('user', 'token', 'id'));
         $this->set('_serialize', ['user', 'token']);

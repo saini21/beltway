@@ -45,7 +45,7 @@
         <div class="col-sm-12">
             <div class="radio radio-danger">
                 <input type="radio" name="role" id="privateCitizen" value="Private Citizen">
-                <label for="privateCitizen"> Private Citizen </label>
+                <label for="privateCitizen"> Electorate </label>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
                 <input type="radio" name="role" id="politician" value="Politician">
                 <label for="politician"> Politician </label>
@@ -68,7 +68,7 @@
         </div>
         <div class="form-group">
             <div class="col-md-6">
-                <?= $this->Form->input('state', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'State']) ?>
+                <?= $this->Form->input('state', ['class' => 'form-control place-me pl-bold', 'type'=>'select', 'options'=>$usaStates, 'empty'=>'Select State', 'label' => false, 'style'=>'background: #c3d8eb;']) ?>
             </div>
             <div class="col-md-6">
                 <?= $this->Form->input('city', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'City']) ?>
@@ -88,12 +88,14 @@
     </div>
 </div>
 <?= $this->element('free_membership') ?>
+
 <script>
     $(document).ready(function () {
-        
-        setTimeout(function () {
-            //$('#freeMembership').modal('show');
-        }, 1000);
+        <?php if(!isset($this->request->query['show'])){ ?>
+            setTimeout(function () {
+                $('#freeMembership').modal('show');
+            }, 1000);
+        <?php } ?>
         
         $('#politician').click(function () {
             $('#city, #state').removeClass('pl-bold');
@@ -103,7 +105,7 @@
             $("#city").rules("add", {
                 required: false
             });
-    
+            
             $('#city, #state').next('label').hide();
         });
         

@@ -1,16 +1,20 @@
-<div class="wrapper inner-page" style="margin-top: 0px; padding-top: 0px;">
+<div class="inner-page" style="margin-top: 0px; padding-top: 0px;">
     <div class="container">
         <div class="col-md-1"></div>
         <div class="col-md-10">
+            <style>
+                h3{font-size: 28px;}
+                p{font-size: 12px;}
+                a{font-size: 14px;}
+            </style>
             
             <div class="about">
                 <h2>Contact Us:</h2>
-                <p>
-                    This site is for you, let’s help one another!  We’re striving for an arena of full transparency and direct contact.  The only agenda is to allow focused debate on Politics… the rest is up to YOU.<br /><br />
+                <p>This site is for those who want their voice to be heard and shared!  Our only agenda is to allow an unfiltered and constructive politically focused debate.<br /><br />
+                    <span style="font-size: 18px;">Email Addresses:</span><br />
+                <span style="font-size: 14px;"><a href="mailto:info@beltwaygraffiti.com?Subject=Hello%20" target="_top">info@beltwaygraffiti.com</a> – General inquiries.  We’ll respond in a timely manner. </span><br />
     
-                    General Inquiries: <a href="mailto:info@beltwaygraffiti.com?Subject=Hello%20" target="_top">info@beltwaygraffiti.com</a> – Please email us and we’ll respond in a timely manner.<br /><br />
-    
-                    Email Me!  Founder: <a href="mailto:david@beltwaygraffiti.com?Subject=Hello%20" target="_top">david@beltwaygraffiti.com</a> – I am an open book and would love your opinion / insight on how to improve this website.<br /><br />
+                <span style="font-size: 14px;"><a href="mailto:david@beltwaygraffiti.com?Subject=Hello%20" target="_top">david@beltwaygraffiti.com</a> – Connect directly with our Founder!  David is receptive to all questions and ideas on how to improve the service.</span><br /><br />
     
                     Some information and history on me: David Rahal<br /><br />
     

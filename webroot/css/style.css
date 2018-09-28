@@ -4,8 +4,16 @@
 @import url('../font/cg/stylesheet.css');
 @import url('../font/sp/stylesheet.css');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Roboto:100,300,400,500,700');
+@font-face {
+    font-family: 'simsunregular';
+    src: url('../font/simsun.woff2') format('woff2'),   url('../font/simsun.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
 	background:#fff;
+    font-family: simsunregular !important;
 }
 * {
 	margin:0;
@@ -17,7 +25,7 @@ a, a:hover, a.active, input, select, textarea {
 	outline:none;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'simsunregular';
 	line-height:normal;
 	font-weight:normal;
 }
@@ -40,7 +48,7 @@ h6 {
 	font-size:16px;
 }
 p, table {
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'simsunregular';
 	line-height:normal;
 }
 img {
@@ -133,7 +141,7 @@ header {
 	background:url(../img/menu-line.jpg) center right no-repeat;
 	padding:15px 12px;
 	text-transform:uppercase;
-	font-family: 'Century Gothic';
+    font-family: 'simsunregular';
 }
 #top-nav ul li:first-child a {
 	background:none;
@@ -195,17 +203,22 @@ header {
 	color:#fff;
 }
 .wrapper {
-	background:url(../img/icon-bg.png) center left fixed no-repeat;
-	padding:60px 0;
+	background:url(../img/icon-bg.png) center left  no-repeat;
+	padding:60px 0 0 0;
 	margin-top:60px;
     min-height: 700px;
+}
+
+.modal-body{
+    background:url(../img/icon-bg-small.png) center left no-repeat;
+    background-size: 100px 190px;
 }
 .banner-text {
 	width:100%;
 	float:left;
 	font-size:19px;
 	color:#6f6f6f;
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'simsunregular';
 	margin-top:110px;
 }
 .banner-text img {
@@ -292,7 +305,7 @@ header {
 	position: relative;
 	font-size:19px;
 	padding-left: 5px;
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'simsunregular';
 	color:#000;
 }
  .radio label::before {
@@ -392,7 +405,7 @@ color:#D9534F;
 	margin-bottom:15px;
 	border-radius:0;
 	font-size:15px;
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'simsunregular';
 	border:0;
 	color:#111;
 	padding:7px 10px;
@@ -486,7 +499,7 @@ color:#D9534F;
 .form-part-one .radio label {
 	font-size:15px;
 	color:#333;
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'simsunregular';
 }
  .form-part-one .radio label::before {
 top:2px;
@@ -577,7 +590,7 @@ top:8px;
 }
 .upimage {
 	font-size:16px;
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'simsunregular';
 	font-weight:normal;
 	float:left;
 }
@@ -597,13 +610,13 @@ top:8px;
 }
 .newemail label {
 	font-size:16px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 	font-weight:normal
 }
 .newemail input[type="text"] {
 	padding:7px 15px;
 	font-size:15px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 	border:1px solid #ccc
 }
 .question {
@@ -623,18 +636,18 @@ top:8px;
 }
 .question label {
 	font-size:15px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 	font-weight:normal
 }
 .question input[type="text"], .content input[type="text"] {
 	padding:7px 15px;
 	font-size:15px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 	border:1px solid #ccc
 }
 .question h5 {
 	font-size:17px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 	font-weight:normal;
 	font-weight:bold;
 	margin-top:10px;
@@ -651,7 +664,7 @@ top:8px;
 	color:#888;
 	font-weight:normal;
 	line-height:36px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 }
 .content .form-group {
 	margin-bottom:20px;
@@ -662,7 +675,7 @@ top:8px;
 	background:#444;
 	padding:8px 15px;
 	color:#fff;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 	border:0;
 	text-transform:uppercase;
 	font-weight:bold
@@ -719,7 +732,7 @@ top:8px;
 	text-decoration:none;
 	font-size:14px;
 	padding:10px 12px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 }
 #chat-menu ul li:first-child a {
 	background:none;
@@ -828,8 +841,8 @@ top:8px;
 	border:1px solid #ddd;
 	border-radius:8px;
 	padding:8px 10px;
-	font-family:12px;
-	font-family:calibri;
+	font-size:12px;
+    font-family: 'simsunregular';
 	position:relative
 }
 .s-left .u-msg {
@@ -885,7 +898,7 @@ top:8px;
 	padding:1px;
 	background:#fff;
 	font-size:13px;
-	font-family:calibri;
+    font-family: 'simsunregular';
 	color:#333;
 	border:0
 }
@@ -910,7 +923,7 @@ top:8px;
 	width:100%;
 	font-size:25px;
 	color:#414141;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
     margin: 0px;
 }
 .agenda p {
@@ -918,14 +931,14 @@ top:8px;
 	width:100%;
 	font-size:14px;
 	color:#777;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
 }
 .agenda button {
 	float:left;
 	font-size:20px;
 	color:#222;
 	padding:10px 30px;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
 	border:0;
 	background:#dddddd;
 	font-weight:bold;
@@ -942,7 +955,7 @@ top:8px;
 	cursor: pointer;
 	font-size:40px;
 	width:90%;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
 	text-align:center;
 	text-transform:uppercase;
 	box-shadow: 0 0 5px #ccc;
@@ -975,7 +988,7 @@ top:8px;
 	color:#333;
 	margin:0;
 	font-weight:bold;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
 }
 .post-content p {
 	float:left;
@@ -984,7 +997,7 @@ top:8px;
 	padding-left:20px;
 	color:#444;
 	margin:10px 0 0 0;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
 	line-height:21px;
     text-align: justify;
 
@@ -995,7 +1008,7 @@ top:8px;
 	text-align:right;
 	font-size:13px;
 	color:#999;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
 }
 .comment-section {
 	width:100%;
@@ -1035,7 +1048,7 @@ top:8px;
 	padding:10px;
 	background:#fff;
 	font-size:15px;
-	font-family:calibri;
+    font-family: 'simsunregular';
 	color:#333;
 	border:0
 }
@@ -1044,7 +1057,7 @@ top:8px;
 	font-size:13px;
 	color:#fff;
 	padding:7px 11px;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
 	margin-top:10px;
 	border:0;
 	text-transform:uppercase;
@@ -1065,7 +1078,7 @@ top:8px;
 	font-size:14px;
 	color:#111;
 	margin:0;
-	font-family: 'gothambook';
+    font-family: 'simsunregular';
 	line-height:21px;
 }
 .user-comment p {
@@ -1075,7 +1088,7 @@ top:8px;
 	color:#444;
 	margin:0;
 	padding:0;
-	font-family: calibri;
+    font-family: 'simsunregular';
 }
 .exit-poll, .exit-poll img {
 	float:left;
@@ -1110,7 +1123,7 @@ top:8px;
 	color:#fff;
 	background:#EA2829;
 	padding:10px 0;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 	font-weight:bold;
 	text-transform:uppercase;
 	border-radius:4px;
@@ -1125,7 +1138,7 @@ label.error {
 	line-height: 0px;
 	float: left;
 	font-size:12px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 }
 label.private-citizen-error{
     font-weight: normal;
@@ -1134,22 +1147,22 @@ label.private-citizen-error{
     line-height: 0px;
     float: left;
     font-size:12px;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
     width: 100%;
     display: none;
 }
 #forgotPasswordForm input[type="email"] {
 	font-size:14px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 	height:44px;
 }
 .flach-container .message.error, .flach-container .success {
 	font-size:16px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 }
 #forgotPasswordForm a, #loginForm a {
 	font-size:15px;
-	font-family: "Open Sans", sans-serif;
+    font-family: 'simsunregular';
 }
 
 
@@ -1276,9 +1289,12 @@ header .col-md-7 {
 }
 #top-nav {
 margin:-20px auto 20px;
-width:200px;
+width:238px;
 float:none;
 }
+.inner-nav {
+        width:320px !important;
+    }
 #top-nav ul {
  display: block;
  float: none;
