@@ -24,6 +24,71 @@
         font-weight: bold;
     }
 
+         /* The container */
+     .checkbox-c {
+         display: block;
+         position: relative;
+         padding-left: 35px;
+         cursor: pointer;
+         font-size: 16px;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         user-select: none;
+         font-weight: normal;
+     }
+
+    /* Hide the browser's default checkbox */
+    .checkbox-c input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .checkbox-c:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .checkbox-c input:checked ~ .checkmark {
+        background-color: #d9534f;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .checkbox-c input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .checkbox-c .checkmark:after {
+        left: 7px;
+        top: 2px;
+        width: 7px;
+        height: 13px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
 </style>
 <div class="col-md-1"></div>
 <div class="col-md-6">
@@ -77,6 +142,18 @@
         <div class="form-group">
             <div class="col-md-12">
                 <?= $this->Form->input('password', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'Password']) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label class="checkbox-c" for="iAgree">
+                    <input type="checkbox" id="iAgree" name="i_agree" value="true">
+                    <span class="checkmark"></span>
+                    I agree <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'termsOfService']); ?>" target="_blank">Terms of Service</a>
+                    and
+                    <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'privacyPolicy']); ?>" target="_blank">Privacy Policy</a>
+                </label>
+                <label for="i_agree" class="error" style="margin:5px 0 0 36px; display: none;">Please agree terms and conditions and privacy policy.</label>
             </div>
         </div>
         <div class="form-group">
@@ -142,8 +219,10 @@
                 },
                 state: {
                     required: true
+                },
+                i_agree: {
+                    required: true
                 }
-                
             },
             messages: {
                 role: {
@@ -167,6 +246,9 @@
                 },
                 state: {
                     required: "Please enter state."
+                },
+                i_agree: {
+                    required: "Please agree terms and conditions and privacy policy."
                 }
             }
         });

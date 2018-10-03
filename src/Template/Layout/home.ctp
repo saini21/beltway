@@ -42,11 +42,14 @@
         </div>
     </div>
 </div>
-
-<?= $this->element('footer') ?>
+<?php if (in_array($this->request->params['action'], ['register', 'login'])) { ?>
+    <?= $this->element('footer') ?>
+<?php } ?>
 <?= $this->element('coming_soon') ?>
 <!-- Footer End -->
+
 <?= $this->fetch('footer_script') ?>
+
 <script>
     $(document).ready(function () {
         $('.message').attr('title', 'Click to Hide');
