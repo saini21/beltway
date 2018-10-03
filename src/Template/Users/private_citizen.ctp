@@ -197,6 +197,44 @@
                         </a -->
                     </div>
                 </div>
+                
+                    <div class="form-group">
+                        <h5> Member Status </h5>
+                    </div>
+                    <div class="form-group">
+                        <div class="radio radio-danger vikas">
+                            <p><span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span> Comment
+                                <br>
+                                <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span> upload
+                                articles and other content <br>
+                                <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span>
+                                $0.99/month<br>
+                                <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span>
+                                Interact with politicians<br>
+                              </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php /*
+<div id="stepTwo" class="row" style="display:none;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="pc">
+            <h4>Private Citizen</h4>
+            <div class="form-part-one pulbox">
+                <div class="row">
+                    <div class="col-lg-11 "></div>
+                    <div class="col-lg-1 right-align">
+                        <!-- a class="btn btn-danger right-align" style="margin: -50px 0 0 0;"
+                           href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'dashboard']); ?>">
+                            <i class="fa fa-times"></i>
+                        </a -->
+                    </div>
+                </div>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
                     <input type="hidden" name="on0" value="Member Status">
@@ -267,7 +305,7 @@
         </div>
     </div>
 </div>
-
+*/ ?>
 <script type="text/javascript">
     $(function () {
         

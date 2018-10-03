@@ -9,14 +9,14 @@
             </style>
             
             <div class="about">
-                <h2>Contact Us:</h2>
-                <p>This site is for those who want their voice to be heard and shared!  Our only agenda is to allow an unfiltered and constructive politically focused debate.<br /><br />
-                    <span style="font-size: 18px;">Email Addresses:</span><br />
-                <span style="font-size: 14px;"><a href="mailto:info@beltwaygraffiti.com?Subject=Hello%20" target="_top">info@beltwaygraffiti.com</a> – General inquiries.  We’ll respond in a timely manner. </span><br />
+                <h2>Contact Us</h2>
+                <p>This site is for those who want their voice to be heard and shared!<br /><br />  Our only agenda is to allow an unfiltered and constructive politically focused debate.<br /><br />
+                    <span style="font-size: 18px; font-weight: bold">Email Addresses:</span><br />
+                <span style="font-size: 14px;"><a href="mailto:info@beltwaygraffiti.com?Subject=Hello%20" target="_top">info@beltwaygraffiti.com</a> – General inquiries.  We’ll respond in a timely manner. </span><br /><br />
     
                 <span style="font-size: 14px;"><a href="mailto:david@beltwaygraffiti.com?Subject=Hello%20" target="_top">david@beltwaygraffiti.com</a> – Connect directly with our Founder!  David is receptive to all questions and ideas on how to improve the service.</span><br /><br />
     
-                    Some information and history on me: David Rahal<br /><br />
+                    <!-- Some information and history on me: David Rahal<br /><br />
     
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">§</span>  I am not a tech guy – far from it!  In fact, I am currently in the food importing business.<br /><br />
     
@@ -30,7 +30,7 @@
     
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red">§</span>  I started seeing “Political Reporting” as an unnecessary filter and thought there should be a way to connect interested voters with one another and even extend it to Elected Officials.<br /><br />
     
-                    As a result, I strived for a safe space dedicated to political discourse – which allowed us to be the Adults in the room, to speak for ourselves on points that were important in our daily lives.
+                    As a result, I strived for a safe space dedicated to political discourse – which allowed us to be the Adults in the room, to speak for ourselves on points that were important in our daily lives. -->
                 
                 </p>
             </div>

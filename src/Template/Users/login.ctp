@@ -3,7 +3,7 @@
 <div class="col-md-6">
     <div class="banner-text">
         <?= $this->Html->image('hand-shake.png', ['alt' => SITE_TITLE]); ?>
-        Get involved in targeted and productive political debate <br>
+        Connect directly with politicians and other members of the electorate<br>
         <br>
         <?= $this->Html->image('pensil.png', ['alt' => SITE_TITLE]); ?>
         Safe space for open interaction without fear of personal attacks<br>

@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div style="height: 200px; line-height: 200px; text-align: center;">
-                    FREE TRIAL PERIOD until December 31, 2018 – <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register',"?show=false"]); ?>">Sign Up Now!</a>
+                    FREE TRIAL PERIOD until December 31, 2018 <!-- – <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register',"?show=false"]); ?>">Sign Up Now!</a> -->
                 </div>
             </div>
             <div class="modal-footer">

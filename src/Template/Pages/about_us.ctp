@@ -11,9 +11,9 @@
             </style>
             
             <div class="about">
-                <h2>About:</h2>
+                <h2>About</h2>
                 <p>
-                    <b>Welcome to Beltway Graffiti!</b>  <span style="font-size: 22px; color: red; font-weight: bold; margin-left: 50px">FREE TRIAL PERIOD until December 31, 2018</span><br /><br />
+                    <!-- b>Welcome to Beltway Graffiti!</b -->  <span style="font-size: 22px; color: red; font-weight: bold; margin-left: 50px">FREE TRIAL PERIOD until December 31, 2018</span><br /><br />
                     
                     We’re offering an untainted and fresh approach to political debate.  Restoring the trust and transparency which has been drawn into question in these turbulent times of political debate and user data protection. <br /><br />
     
@@ -25,11 +25,11 @@
                     
                     <h4>Access & Services:</h4>
     
-                <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register',"?show=false"]); ?>"><h5>FREE TRIAL until December 31, 2018.</h5></a>
+                <!-- a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register',"?show=false"]); ?>"><h5>FREE TRIAL until December 31, 2018.</h5></a -->
     
                 In early 2019 an email will be sent to all registered users and Beltway Graffiti will begin operating under a monthly subscription model: $0.99/month for “electorate” access.  A monthly fee structure is currently being constructed for “politician” access.<br /><br />
     
-                There are two main reasons we’ve chosen a subscription service and we feel strongly both will enhance the user experience.  First, enable the site to generate revenue while maintaining our promise of not sharing user data with outside advertisers.  Second, a deterrent against those whose sole purpose is to irritate rather than debate constructively.<br /><br />
+                <!-- There are two main reasons we’ve chosen a subscription service and we feel strongly both will enhance the user experience.  First, enable the site to generate revenue while maintaining our promise of not sharing user data with outside advertisers.  Second, a deterrent against those whose sole purpose is to irritate rather than debate constructively.<br /><br />
     
                     There should be a way to get like-minded political junkies in the same room for open dialogue and debate without the distractions of selfies and/or pictures of what someone ate last night!<br /><br />
     
@@ -48,6 +48,7 @@
                     In addition, the thinking is a “pay-to-play” model will reduce the number of trolls and therefore allow for productive discourse.<br /><br />
     
                     Now let’s get on with making a difference!
+                    -->
                 
                 </p>
             </div>

@@ -94,7 +94,7 @@
 <div class="col-md-6">
     <div class="banner-text">
         <?= $this->Html->image('hand-shake.png', ['alt' => SITE_TITLE]); ?>
-        Get involved in targeted and productive political debate <br>
+        Connect directly with politicians and other members of the electorate <br>
         <br>
         <?= $this->Html->image('pensil.png', ['alt' => SITE_TITLE]); ?>
         Safe space for open interaction without fear of personal attacks<br>
@@ -105,7 +105,7 @@
 </div>
 <div class="col-md-5">
     <div class="form-wrapper">
-        <h3>Focused Debate and Action drive Results</h3>
+        <!-- h3>Focused Debate and Action drive Results</h3 -->
         <?= $this->Form->create(null, ['url' => ['controller' => 'Users', 'action' => 'add'], 'id' => 'registerForm', 'class' => "intro-form"]) ?>
         <div class="col-sm-12">
             <div class="radio radio-danger">

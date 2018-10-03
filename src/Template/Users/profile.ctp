@@ -57,7 +57,41 @@
 </div>
 <?= $this->Form->end() ?>
 </div>
-<?php if($authUser['role'] == "Private Citizen") { ?>
+
+<?php if ($authUser['role'] == "Private Citizen") { ?>
+    <div id="stepTwo" class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="pc">
+                <h4>Electorate - <?= (empty($authUser['user_type'])) ? "Not a Member" : $authUser['user_type'] ?></h4>
+                <div class="form-part-one pulbox">
+                    <div class="row">
+                        <div class="col-lg-11 "></div>
+                        <div class="col-lg-1 right-align">
+                            <!-- a class="btn btn-danger right-align" style="margin: -50px 0 0 0;"
+                           href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'dashboard']); ?>">
+                            <i class="fa fa-times"></i>
+                        </a -->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="radio radio-danger vikas">
+                            <p><span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span> Comment
+                                <br>
+                                <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span> upload
+                                articles and other content <br>
+                                <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span>
+                                $0.99/month<br />
+                                <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span>
+                                Interact with politicians</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php /* if($authUser['role'] == "Private Citizen") { ?>
 <div id="stepTwo" class="row" >
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -145,7 +179,7 @@
         </div>
     </div>
 </div>
-<?php } ?>
+<?php } */ ?>
 <script type="text/javascript">
     $(function () {
         
