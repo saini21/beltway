@@ -70,6 +70,9 @@
 <div class="col-md-1"></div>
 <div class="col-md-6">
     <div class="banner-text">
+        <?= $this->Html->image('forum.png', ['alt' => SITE_TITLE]); ?>
+        A forum dedicated to political debate <br>
+        <br>
         <?= $this->Html->image('hand-shake.png', ['alt' => SITE_TITLE]); ?>
         Connect directly with politicians and other members of the electorate<br>
         <br>
@@ -104,7 +107,8 @@
         <div class="form-group">
             <div class="col-md-12">
                 <label class="checkbox-c" for="rememberMe">
-                    <input type="checkbox" id="rememberMe" name="remember_me" value="true">
+                    
+                    <?= $this->Form->input('remember_me', ['class' => 'form-control place-me', 'label' => false, 'type' => 'checkbox', 'value'=>'true', 'id'=>'rememberMe', 'templates' => ['inputContainer' => '{{content}}']]) ?>
                     <span class="checkmark"></span>Remember Me
                 </label>
             </div>
