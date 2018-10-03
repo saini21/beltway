@@ -57,6 +57,9 @@ class UsersController extends AppController {
         if ($this->request->is('post') || $this->request->query('provider')) {
             $user = $this->Auth->identify();
             if ($user) {
+                if ($this->request->data['remember_me']) {
+                    $this->Cookie->write('loggedInUser', $user, true, '1 year');
+                }
                 $this->Auth->setUser($user);
                 $daysOld = $this->dateDiff($user['created']->nice());
                 if ($user['registration_steps_done'] || $user['step_crossed'] || $daysOld <= 90) {

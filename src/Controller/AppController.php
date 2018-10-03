@@ -70,6 +70,13 @@ class AppController extends Controller {
                 'action' => 'register'
             ],
         ]);
+    
+        $loggedInUser = $this->Cookie->read('loggedInUser');
+    
+        if (!empty($loggedInUser) && !$this->Auth->user()) {
+            $this->Auth->setUser($loggedInUser);
+            $this->redirect($this->Auth->redirectUrl());
+        }
         
         if ($this->Auth->user()) {
             $this->set('authUser', $this->Auth->user());
