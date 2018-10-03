@@ -70,7 +70,7 @@
 <div class="col-md-1"></div>
 <div class="col-md-6">
     <div class="banner-text">
-        <?= $this->Html->image('forum.png', ['alt' => SITE_TITLE]); ?>
+        <?= $this->Html->image('forum.png', ['alt' => SITE_TITLE, 'style'=>"position:relative; top:-10px;"]); ?>
         A forum dedicated to political debate <br>
         <br>
         <?= $this->Html->image('hand-shake.png', ['alt' => SITE_TITLE]); ?>
