@@ -52,7 +52,7 @@
 <?= $this->element('footer') ?>
 <?= $this->element('coming_soon') ?>
 <!-- Footer End -->
-<? $this->fetch('footer_script') ?>
+<!-- ?= $this->fetch('footer_script') ? -->
 <script>
     $(document).ready(function () {
         $('.message').attr('title', 'Click to Hide');
