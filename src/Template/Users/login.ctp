@@ -71,7 +71,7 @@
 <div class="col-md-6">
     <div class="banner-text">
         <?= $this->Html->image('forum.png', ['alt' => SITE_TITLE, 'style'=>"position:relative; top:-10px;"]); ?>
-        A forum dedicated to political debate <br>
+         Nonpartisan forum for political debate <br>
         <br>
         <?= $this->Html->image('hand-shake.png', ['alt' => SITE_TITLE]); ?>
         Connect directly with politicians and other members of the electorate<br>

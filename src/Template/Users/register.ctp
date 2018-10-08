@@ -90,11 +90,12 @@
         transform: rotate(45deg);
     }
 </style>
+<div class="row" style="margin:80px 0 0 0;">
 <div class="col-md-1"></div>
 <div class="col-md-6">
     <div class="banner-text">
         <?= $this->Html->image('forum.png', ['alt' => SITE_TITLE, 'style'=>"position:relative; top:-10px;"]); ?>
-        A forum dedicated to political debate <br>
+         Nonpartisan forum for political debate <br>
         <br>
         <?= $this->Html->image('hand-shake.png', ['alt' => SITE_TITLE]); ?>
         Connect directly with politicians and other members of the electorate <br>
@@ -167,13 +168,14 @@
         <?= $this->Form->end() ?>
     </div>
 </div>
+</div>
 <?= $this->element('free_membership') ?>
 
 <script>
     $(document).ready(function () {
         <?php if(!isset($this->request->query['show'])){ ?>
             setTimeout(function () {
-                $('#freeMembership').modal('show');
+              //  $('#freeMembership').modal('show');
             }, 1000);
         <?php } ?>
         

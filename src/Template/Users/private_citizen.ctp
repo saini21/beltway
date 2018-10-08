@@ -208,9 +208,9 @@
                                 <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span> upload
                                 articles and other content <br>
                                 <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span>
-                                $0.99/month<br>
-                                <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span>
                                 Interact with politicians<br>
+                                <span class="icon-a"><i class="fa fa-caret-right" aria-hidden="true"></i></span>
+                                                                $0.99/month<br>
                               </p>
                         </div>
                     </div>
