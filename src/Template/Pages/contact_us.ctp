@@ -14,7 +14,7 @@
                     <span style="font-size: 18px; font-weight: bold; margin-bottom:10px; width:100%; float:left;">Email Address:</span><br />
                 <span style="font-size: 14px;"><a href="mailto:info@beltwaygraffiti.com?Subject=Hello%20" target="_top">info@beltwaygraffiti.com</a> – General inquiries.  We’ll respond in a timely manner. </span><br />
     
-                <span style="font-size: 14px;"><a href="mailto:david@beltwaygraffiti.com?Subject=Hello%20" target="_top">david@beltwaygraffiti.com</a> – Connect directly with our Founder!  David is receptive to all questions and ideas on how to improve the service.</span><br /><br />
+                <span style="font-size: 14px;"><a href="mailto:david@beltwaygraffiti.com?Subject=Hello%20" target="_top">david@beltwaygraffiti.com</a> – Connect  with our Founder!  David is receptive to all questions and ideas on how to improve the service.</span><br /><br />
     
                     <!-- Some information and history on me: David Rahal<br /><br />
     

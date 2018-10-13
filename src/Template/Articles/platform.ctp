@@ -15,15 +15,24 @@
             <div class="row">
                 <div class="col-lg-5">
                     <h3><?= ucfirst(strtolower($authUser['first_name'])) ?> <?= ucfirst(strtolower($authUser['last_name'])) ?></h3>
-                    <p>Add text and sub title</p>
                 </div>
                 
                 <div class="col-lg-7">
-                    <?php if ($authUser) { ?>
+                    <?php /* if ($authUser) { ?>
                         <a href="<?= $this->Url->build(['controller' => 'Chats', 'action' => 'createGroup']); ?>">
                             <button>Upload Agenda</button>
                         </a>
-                    <?php } ?>
+                    <?php } */ ?>
+                    <form action="javascript:void(0);">
+                        <div class="input-group  mb-3">
+                            <input type="text" class="form-control" name="searchKey" id="searchKey"
+                                   placeholder="Search Articles ..." aria-label="Search Articles ..."
+                                   aria-describedby="basic-addon2">
+                            <div class="input-group-addon">
+                                <span class="input-group-text"><i class="fa fa-search"></i> </span>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -74,7 +83,7 @@
                             </script>
                             <br/>
                             <label class="pull-right" id="photoError" style="display: none; margin-top: 10px; ont-weight: normal; color: #F20034; line-height: 0px;
-    font-size: 12px; font-family: "Open Sans", sans-serif;">Only formats are allowed : jpeg, jpg, png, gif.</label>
+    font-size: 12px; font-family: " Open Sans", sans-serif;">Only formats are allowed : jpeg, jpg, png, gif.</label>
                         
                         
                         </div>
@@ -111,7 +120,7 @@
     
     </div>
 </div>
-<div class="col-md-2">
+<!-- div class="col-md-2">
     <div class="exit-poll">
         <?php if ($showBtn) { ?>
             <a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'exitPolling']); ?>"><img
@@ -129,7 +138,7 @@
             <a href="javascript:void(0)" class="upgrade_account"><img src="/beltway/img/town-hall.jpg" alt=""></a>
         <?php } ?>
     </div>
-</div>
+</div -->
 
 <template id="articleTmpl">
     <div class="post-section" id="article_${id}">
@@ -148,10 +157,11 @@
                     <?php } ?>
                 </div>
             </div>
-            <br />
+            <br/>
             <div class="row">
                 <div class="col-lg-12">
-                    <img src="{%if article_image.length %}<?= ARTICLE_IMAGE_PATH ?>${article_image}{%/if%}" style="width: 96%; margin:0 0% 1% 3%; display: {%if article_image.length %}block{%else%}none{%/if%};" />
+                    <img src="{%if article_image.length %}<?= ARTICLE_IMAGE_PATH ?>${article_image}{%/if%}"
+                         style="width: 96%; margin:0 0% 1% 3%; display: {%if article_image.length %}block{%else%}none{%/if%};"/>
                 </div>
             </div>
             
@@ -219,7 +229,7 @@
     $(function () {
         
         $("#fileInput").change(function () {
-			var file = document.getElementById('fileInput');
+            var file = document.getElementById('fileInput');
             $('#selectedFile').html("<b>Selected File: </b>" + file.files.item(0).name);
             var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
             if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
@@ -309,9 +319,9 @@
                 formData.append('link_description', $('#linkDescription').val());
                 formData.append('link_image', $('#linkImage').val());
                 formData.append('article_image', $('input[type=file]')[0].files[0]);
-    
+                
                 console.log(JSON.stringify(new FormData));
-    
+                
                 if (!photoTypeError) {
                     $.ajax({
                         url: SITE_URL + "/articles/add-api",
@@ -343,7 +353,8 @@
             loadingData = true;
             $.ajax({
                 url: SITE_URL + "/articles/get-articles-api/" + loadPage,
-                type: "GET",
+                type: "POST",
+                data: {key: $('#searchKey').val()},
                 dataType: "json",
                 success: function (response) {
                     
@@ -588,6 +599,40 @@
                     progress = null;
                 }
             });
+        });
+        
+        var xhr = null;
+        $('#searchKey').keyup(function () {
+            loadPage = 1;
+            if (xhr != null) {
+                xhr.abort();
+            }
+            xhr = $.ajax({
+                url: SITE_URL + "/articles/get-articles-api/" + loadPage,
+                type: "POST",
+                data: {key: $(this).val()},
+                dataType: "json",
+                beforeSend: function () {
+                    loadPage = 1;
+                    $("#atricles").html('');
+                },
+                success: function (response) {
+                    if (response.data.articles.length) {
+                        loadPage = parseInt(loadPage) + 1;
+                        $.template("articleTmpl", $('#articleTmpl').html());
+                        $.tmpl("articleTmpl", response.data.articles).appendTo("#atricles");
+                    } else {
+                        $("#atricles").html('<div class="clear"></div><h3 class="no-more-records">No record found</h3>');
+                    }
+                    
+                    xhr = null;
+                },
+                error: function (jqXHR, exception) {
+                    console.log('Something went wrong, check it');
+                }
+                
+            });
+            
         });
         
     });

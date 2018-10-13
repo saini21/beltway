@@ -223,7 +223,7 @@ header {
 }
 .banner-text img {
 	float:left;
-	margin:7px 15px 0 0
+	margin:13px 15px 0 0
 }
 .form-wrapper {
 	float:left;
@@ -464,7 +464,7 @@ color:#D9534F;
 .form-part-one {
 	float:left;
 	width:100%;
-	padding:50px 25px 80px;
+	padding:50px 25px 30px;
 	-webkit-box-shadow: 0 0 7px #999;
 	box-shadow: 0 0 7px #999;
 	background-color:#c3d8eb;
@@ -1106,6 +1106,7 @@ top:8px;
 	line-height:24px;
 	float:left;
 	margin-top:20px;
+    font-size: 14px;
 }
 .about h2 {
 	font-weight:bold;

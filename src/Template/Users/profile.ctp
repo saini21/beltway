@@ -58,7 +58,7 @@
 <?= $this->Form->end() ?>
 </div>
 
-<?php if ($authUser['role'] == "Private Citizen") { ?>
+<?php if ($authUser['role'] == "Private Citizen" && false) { ?>
     <div id="stepTwo" class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">

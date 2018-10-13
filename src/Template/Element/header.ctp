@@ -14,7 +14,7 @@
                 <li><a href="javascript:void(0);"><?= strlen($authUser['first_name']) <= 9 ? $authUser['first_name'] : substr($authUser['first_name'],0,8) .".." ?> <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                     <ul>
                         <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'profile']); ?>">Profile</a></li>
-                        <li><a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'index']); ?>">My Polls</a></li>
+                        <!-- li><a href="<?= $this->Url->build(['controller' => 'Polls', 'action' => 'index']); ?>">My Polls</a></li -->
                         <li><a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'logout']); ?>">Logout</a></li>
                     </ul>
                 </li>

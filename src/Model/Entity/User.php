@@ -41,6 +41,7 @@ class User extends Entity {
         'last_name' => true,
         'email' => true,
         'non_governmental_email' => true,
+        'phone_number' => true,
         'password' => true,
         'profile_image' => true,
         'city' => true,

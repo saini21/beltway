@@ -134,6 +134,7 @@
                                style="float: left; width: 100%;">Please choose one option.</label>
                         <br />
                         <br />
+                        <div style=" float: left; margin-left: 50px;">
                         <?php foreach ($howActiveAreYouInPoliticsOptions as $key => $howActiveAreYouInPoliticsOption) { ?>
     
                             <label class="checkbox-c" for="radioBtN_<?= $key ?>"><?= $howActiveAreYouInPoliticsOption ?>
@@ -144,6 +145,7 @@
                             </label>
                             <br>
                         <?php } ?>
+                        </div>
                     </div>
                     <div class="form-group">
                         <p>4. Do you think the Media is biased ? </p>
@@ -158,8 +160,8 @@
                                style="float: left; width: 100%;">Please choose one option.</label>
                     </div>
                     <div class="form-group">
-                        <p>5. Are politicians listening to the American Public? </p>
-                        <div class="radio radio-danger">
+                        <p>5. Are politicians listening to the American Public?</p>
+                        <div class="radio radio-danger" style=" float: left; margin-left: 50px;">
                             <input type="radio" id="radio17" name="are_politicians_listening_to_the_american_public"
                                    value="Yes">
                             <label for="radio17">Yes</label>
@@ -173,8 +175,10 @@
                             option.</label>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-12">
-                            <input type="submit" class="red-submit" id="memberStatus"/>
+                        <br />
+                        <div class="col-md-12 pull-right text-right">
+                            <!-- input type="submit" class="red-submit" id="memberStatus"/ -->
+                            <a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'platform']); ?>"><input type="submit" class="btn btn-info btn-lg" value="Join" /></a>
                         </div>
                     </div>
                 </form>
@@ -214,6 +218,11 @@
                               </p>
                         </div>
                     </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'platform']); ?>"><input type="submit" class="btn btn-info" value="Join" /></a>
+                    </div>
+                </div>
                 </form>
             </div>
         </div>
@@ -361,10 +370,11 @@
                     dataType: "json",
                     success: function (response) {
                         if (response.code == 200) {
-                            var options = {};
+                            /*var options = {};
                             $('#stepOne').hide('drop', options, 700, function () {
                                 $("#stepTwo").fadeIn(1000);
-                            });
+                            });*/
+                            window.location.href = SITE_URL + "/platform"
                         } else {
                             $().showFlashMessage("error", response.message);
                             $('#resetPasswordBtn').button('<Reset Password <em></em>');

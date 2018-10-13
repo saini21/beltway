@@ -486,6 +486,25 @@ class UsersController extends AppController {
         echo $this->responseFormat();
     }
     
+    public function phoneNumberApi() {
+        $this->autoRender = false;
+        $this->responseCode = CODE_BAD_REQUEST;
+        if ($this->request->is('post')) {
+            $user = $this->Users->findById($this->Auth->user('id'))->first();
+            if ($user) {
+                $user->phone_number = $this->request->data['phone_number'];
+                if ($this->Users->save($user)) {
+                    $this->Auth->setUser($user);
+                    $this->responseCode = SUCCESS_CODE;
+                    $this->responseMessage = __('Your phone number has been successfully saved');
+                } else {
+                    $this->responseMessage = __('Something went wrong, please try again.');
+                }
+            }
+        }
+        echo $this->responseFormat();
+    }
+    
     public function markStepCrossed() {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;

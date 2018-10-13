@@ -17,6 +17,7 @@ class ChatsController extends AppController {
     
     public function initialize() {
         parent::initialize();
+        return $this->redirect(SITE_URL);
         $this->Auth->allow(['newMessage']);
     }
     

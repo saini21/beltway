@@ -33,6 +33,11 @@ class CreateUsers extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ]);
+        $table->addColumn('phone_number', 'string', [
+            'default' => null,
+            'limit' => 255,
+            'null' => false,
+        ]);
         $table->addColumn('password', 'string', [
             'default' => null,
             'limit' => 255,

@@ -29,7 +29,7 @@ class ArticlesController extends AppController {
      * @return \Cake\Http\Response|void
      */
     public function platform() {
-    
+        
         $showBtn = false;
         $authUser = $this->Auth->user();
         
@@ -40,7 +40,7 @@ class ArticlesController extends AppController {
         }
         
         //Free for first 90 days
-        if($daysOld <= 90){
+        if ($daysOld <= 90) {
             $showBtn = true;
         }
         
@@ -49,11 +49,11 @@ class ArticlesController extends AppController {
         
     }
     
-    private function dateDiff($date){
+    private function dateDiff($date) {
         $now = time(); // or your date as well
         $your_date = strtotime($date);
         $datediff = $now - $your_date;
-    
+        
         return round($datediff / (60 * 60 * 24));
     }
     
@@ -64,7 +64,8 @@ class ArticlesController extends AppController {
      */
     public function getArticlesApi($page = 1) {
         $this->autoRender = false;
-        $articles = $this->__getArticles($page);
+        $key = $this->request->data['key'];
+        $articles = $this->__getArticles($page, $key);
         
         if (empty($articles)) {
             
@@ -80,7 +81,27 @@ class ArticlesController extends AppController {
     }
     
     
-    
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|void
+     */
+    public function search($page = 1) {
+        $this->autoRender = false;
+        $key = $this->request->data['key'];
+        $articles = $this->__getArticles($page, $key);
+        
+        if (empty($articles)) {
+            $this->responseCode = CODE_BAD_REQUEST;
+            $this->responseMessage = __('No record found');
+        } else {
+            $this->responseCode = SUCCESS_CODE;
+            $this->responseData['articles'] = $articles;
+        }
+        
+        echo $this->responseFormat();
+        exit;
+    }
     
     
     /**
@@ -127,16 +148,16 @@ class ArticlesController extends AppController {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
         if ($this->request->is('post')) {
-			
+            
             if ($this->request->data['id'] == "0") {
                 $article = $this->Articles->newEntity();
             } else {
                 $article = $this->Articles->find('all', ['conditions' => ['id' => $this->request->data['id'], 'user_id' => $this->Auth->user('id')]])->first();
             }
             
-            if($this->request->data['article_image'] == "undefined"){
-				unset($this->request->data['article_image']);
-			}
+            if ($this->request->data['article_image'] == "undefined") {
+                unset($this->request->data['article_image']);
+            }
             
             $article->user_id = $this->Auth->user('id');
             $article = $this->Articles->patchEntity($article, $this->request->getData());
@@ -152,8 +173,20 @@ class ArticlesController extends AppController {
         echo $this->responseFormat();
     }
     
-    private function __getArticles($page = 1) {
-        $offset = ($page-1) * PAGE_LIMIT;
+    private function __getArticles($page = 1, $key = "") {
+        
+        $offset = ($page - 1) * PAGE_LIMIT;
+    
+        $condition = [];
+        if (!empty($key)) {
+        
+            $condition = ['OR' =>
+                [
+                    'Articles.title LIKE ' => "%" . $key . "%",
+                    'Articles.content LIKE ' => "%" . $key . "%"
+                ]
+            ];
+        }
         
         $articles = $this->Articles->find()
             ->contain(['Users' => function ($q) {
@@ -162,6 +195,7 @@ class ArticlesController extends AppController {
                 'ArticleLikes' => function ($q) {
                     return $q->where(['ArticleLikes.user_id' => $this->Auth->user('id')]);
                 }])
+            ->where($condition)
             ->order(['Articles.created' => 'DESC'])
             ->offset($offset)
             ->limit(PAGE_LIMIT)
@@ -170,6 +204,7 @@ class ArticlesController extends AppController {
         $articlesArray = [];
         if (!empty($articles)) {
             foreach ($articles as $article) {
+                //pr($article); die;
                 $article->created = date(SHORT_DATE, strtotime($article->created));
                 $article->content = nl2br($article->content);
                 $articlesArray[] = $article;
@@ -283,43 +318,43 @@ class ArticlesController extends AppController {
     }
     
     
-    public function urlExists(){
+    public function urlExists() {
         $this->autoRender = false;
-    
+        
         $this->responseCode = CODE_BAD_REQUEST;
-    
+        
         $text = $this->request->data['q'];
-    
+        
         //FIND URLS INSIDE TEXT
         //The Regular Expression filter
         $regExpUrl = "/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))/";
-    
+        
         // Check if there is a url in the text
-        if(preg_match($regExpUrl, $text, $url)) {
-            if(!empty($url)) {
+        if (preg_match($regExpUrl, $text, $url)) {
+            if (!empty($url)) {
                 $this->responseData['url_exists'] = true;
                 $this->responseData['link'] = (strpos($url[0], ":") === false) ? 'http://' . $url[0] : $url[0];
                 $this->responseCode = SUCCESS_CODE;
             }
         }
-    
+        
         echo $this->responseFormat();
     }
     
-    public function fetchPreview(){
-    
+    public function fetchPreview() {
+        
         $this->autoRender = false;
         $this->responseData['url_exists'] = false;
         $this->responseCode = CODE_BAD_REQUEST;
-    
+        
         $url = $this->request->data['url'];
-    
+        
         $this->loadComponent('FetchUrlPreview');
         $this->responseData = $this->FetchUrlPreview->fetch($url);
-        if($this->responseData) {
+        if ($this->responseData) {
             $this->responseCode = SUCCESS_CODE;
         }
-    
+        
         echo $this->responseFormat();
         
         
