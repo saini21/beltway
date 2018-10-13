@@ -175,7 +175,7 @@
     $(document).ready(function () {
         <?php if(!isset($this->request->query['show'])){ ?>
             setTimeout(function () {
-              //  $('#freeMembership').modal('show');
+               $('#freeMembership').modal('show');
             }, 1000);
         <?php } ?>
         

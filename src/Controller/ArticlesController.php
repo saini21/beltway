@@ -33,7 +33,9 @@ class ArticlesController extends AppController {
         $showBtn = false;
         $authUser = $this->Auth->user();
         
-        $daysOld = $this->dateDiff($authUser['created']->nice());
+        if(isset($authUser['created'])) {
+            $daysOld = $this->dateDiff($authUser['created']->nice());
+        }
         
         if (($authUser['role'] == "Private Citizen" && $authUser['user_type'] == "Activist") || ($authUser['role'] == "Politician" && $authUser['user_type'] == "Politician")) {
             $showBtn = true;
