@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+
 /**
  * Articles Controller
  *
@@ -33,8 +34,8 @@ class ArticlesController extends AppController {
         $showBtn = false;
         $authUser = $this->Auth->user();
         
-        if(isset($authUser['created'])) {
-            $daysOld = $this->dateDiff($authUser['created']->nice());
+        if (isset($authUser['created'])) {
+            $daysOld = $this->dateDiff($authUser['created']);
         }
         
         if (($authUser['role'] == "Private Citizen" && $authUser['user_type'] == "Activist") || ($authUser['role'] == "Politician" && $authUser['user_type'] == "Politician")) {
@@ -51,13 +52,7 @@ class ArticlesController extends AppController {
         
     }
     
-    private function dateDiff($date) {
-        $now = time(); // or your date as well
-        $your_date = strtotime($date);
-        $datediff = $now - $your_date;
-        
-        return round($datediff / (60 * 60 * 24));
-    }
+    
     
     /**
      * Index method
@@ -178,10 +173,10 @@ class ArticlesController extends AppController {
     private function __getArticles($page = 1, $key = "") {
         
         $offset = ($page - 1) * PAGE_LIMIT;
-    
+        
         $condition = [];
         if (!empty($key)) {
-        
+            
             $condition = ['OR' =>
                 [
                     'Articles.title LIKE ' => "%" . $key . "%",

@@ -32,7 +32,7 @@ class PollsController extends AppController {
         $showBtn = false;
         $authUser = $this->Auth->user();
     
-        $daysOld = $this->dateDiff($authUser['created']->nice());
+        $daysOld = $this->dateDiff($authUser['created']);
         
         if (($authUser['role'] == "Private Citizen" && $authUser['user_type'] == "Activist") || ($authUser['role'] == "Politician" && $authUser['user_type'] == "Politician")) {
             $showBtn = true;
@@ -47,15 +47,6 @@ class PollsController extends AppController {
     
         $this->set('showBtn', $showBtn);
     }
-    
-    private function dateDiff($date){
-        $now = time(); // or your date as well
-        $your_date = strtotime($date);
-        $datediff = $now - $your_date;
-        
-        return round($datediff / (60 * 60 * 24));
-    }
-    
     
     /**
      * View method

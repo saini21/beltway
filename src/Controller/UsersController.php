@@ -62,7 +62,7 @@ class UsersController extends AppController {
                     $this->Cookie->write('loggedInUser', $user, true, '1 year');
                 }
                 $this->Auth->setUser($user);
-                $daysOld = $this->dateDiff($user['created']->nice());
+                $daysOld = $this->dateDiff($user['created']);
                 if ($user['registration_steps_done'] || $user['step_crossed'] || $daysOld <= 90) {
                     return $this->redirect($this->Auth->redirectUrl());
                 } else {
@@ -79,13 +79,6 @@ class UsersController extends AppController {
         }
     }
     
-    private function dateDiff($date){
-        $now = time(); // or your date as well
-        $your_date = strtotime($date);
-        $datediff = $now - $your_date;
-        
-        return round($datediff / (60 * 60 * 24));
-    }
     
     /**
      * Register method
@@ -110,18 +103,18 @@ class UsersController extends AppController {
             
             if ($this->Users->save($user)) {
                 
-                //                $options = [
-                //					'template' => 'welcome',
-                //					'to' => $user->email,
-                //					'subject' => _('Welcome to '. SITE_TITLE),
-                //					'viewVars' => [
-                //						'name' => $user->first_name,
-                //						'email' => $user->email
-                //					]
-                //				];
-                //
-                //				$this->loadComponent('EmailManager');
-                //				$this->EmailManager->sendEmail($options);
+                $options = [
+                    'template' => 'welcome',
+                    'to' => $user->email,
+                    'subject' => _('Welcome to ' . SITE_TITLE),
+                    'viewVars' => [
+                        'name' => $user->first_name,
+                        'email' => $user->email
+                    ]
+                ];
+                
+                $this->loadComponent('EmailManager');
+                $this->EmailManager->sendEmail($options);
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('You have successfully registered.'));
                 
@@ -285,8 +278,8 @@ class UsersController extends AppController {
         $user = $this->Users->get($this->Auth->user('id'));
         
         $user['password'] = "";
-    
-    
+        
+        
         $usaStates = $this->usaStates();
         $this->set('usaStates', $usaStates);
         
@@ -383,7 +376,7 @@ class UsersController extends AppController {
     public function politician() {
         //Do Something
         $authUser = $this->Auth->user();
-        $daysOld = $this->dateDiff($authUser['created']->nice());
+        $daysOld = $this->dateDiff($authUser['created']);
         
         $this->set('daysOld', $daysOld);
         
@@ -516,7 +509,7 @@ class UsersController extends AppController {
                 $this->responseMessage = __('Step Crossed Marked');
             }
         }
-    
+        
         echo $this->responseFormat();
     }
 }

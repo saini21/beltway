@@ -17,6 +17,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\I18n\FrozenTime;
 
 /**
  * Application Controller
@@ -187,5 +188,20 @@ class AppController extends Controller {
                 'Wisconsin' => 'Wisconsin',
                 'Wyoming' => 'Wyoming',
             ];
+    }
+    
+    public function dateDiff($date) {
+        if (is_object($date)) {
+            $dateTime = $date->nice();
+        } else {
+            $dt = new FrozenTime($date);
+            $dateTime = $dt->nice();
+        }
+        
+        $now = time(); // or your date as well
+        $yourDate = strtotime($dateTime);
+        $datediff = $now - $yourDate;
+        
+        return round($datediff / (60 * 60 * 24));
     }
 }
