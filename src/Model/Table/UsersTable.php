@@ -119,7 +119,10 @@ class UsersTable extends Table {
         
         $validator
             ->allowEmpty('profile_image');
-        
+
+		$validator
+            ->allowEmpty('phone_number');
+            		
         $validator
             ->scalar('city')
             ->maxLength('city', 100)
@@ -210,6 +213,9 @@ class UsersTable extends Table {
             ->notEmpty('password');
     
         $validator->allowEmpty('profile_image');
+        
+        $validator
+            ->allowEmpty('phone_number');
     
         $validator
             ->scalar('city')

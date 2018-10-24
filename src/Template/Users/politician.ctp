@@ -15,12 +15,12 @@
         <div class="form-part-one pulbox">
             <div class="row" style="margin: -20px 10px 30px -15px ">
                 <div class="col-lg-11 "><h5> Credentials </h5></div>
-                <div class="col-lg-1 right-align">
+                <!--div class="col-lg-1 right-align">
                     <a class="btn btn-danger right-align" title="Skip"
                        href="javascript:void(0);" id="politicianSkipBtn">
                         <i class="fa fa-times"></i>
                     </a>
-                </div>
+                </div -->
             </div>
             
             <?php if (!empty($this->request->session()->read('Auth.User.profile_image')) && $this->request->session()->read('Auth.User.profile_image') != "default-user.png") { ?>

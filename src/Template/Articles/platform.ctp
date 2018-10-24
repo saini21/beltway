@@ -23,22 +23,11 @@
                             <button>Upload Agenda</button>
                         </a>
                     <?php } */ ?>
-                    <form action="javascript:void(0);">
-                        <div class="input-group  mb-3">
-                            <input type="text" class="form-control" name="searchKey" id="searchKey"
-                                   placeholder="Search Articles ..." aria-label="Search Articles ..."
-                                   aria-describedby="basic-addon2">
-                            <div class="input-group-addon">
-                                <span class="input-group-text"><i class="fa fa-search"></i> </span>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
         <br>
         <hr>
-        <br>
         <div class="row">
             <div class="col-lg-12">
                 <form action="javascript:void(0);" id="agendaFormOnPage" enctype="multipart/form-data">

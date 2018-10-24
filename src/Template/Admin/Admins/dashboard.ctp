@@ -23,9 +23,7 @@
                 </div>
                 <?=
                 $this->Html->link(
-                        __('More info') . ' <i class="fa fa-arrow-circle-right"></i>', ['controller' => 'Videos', 'action' => 'index','?' => [
-                        'type' => 'all'
-                    ]], ['escape' => false, 'title' => __('More info'), 'class' => 'small-box-footer']
+                        __('More info') . ' <i class="fa fa-arrow-circle-right"></i>', ['controller' => 'Users', 'action' => 'politicians'], ['escape' => false, 'title' => __('More info'), 'class' => 'small-box-footer']
                 )
                 ?>
             </div>
@@ -43,7 +41,7 @@
                 </div>
                 <?=
                 $this->Html->link(
-                        __('More info') . ' <i class="fa fa-arrow-circle-right"></i>', ['controller' => 'Hashtags', 'action' => 'index'], ['escape' => false, 'title' => __('More info'), 'class' => 'small-box-footer']
+                        __('More info') . ' <i class="fa fa-arrow-circle-right"></i>', ['controller' => 'Users', 'action' => 'privateCitizens'], ['escape' => false, 'title' => __('More info'), 'class' => 'small-box-footer']
                 )
                 ?>
             </div>
@@ -61,7 +59,7 @@
                 </div>
                 <?=
                 $this->Html->link(
-                        __('More info') . ' <i class="fa fa-arrow-circle-right"></i>', ['controller' => 'Users', 'action' => 'index'], ['escape' => false, 'title' => __('More info'), 'class' => 'small-box-footer']
+                        __('More info') . ' <i class="fa fa-arrow-circle-right"></i>', ['controller' => 'Polls', 'action' => 'index'], ['escape' => false, 'title' => __('More info'), 'class' => 'small-box-footer']
                 )
                 ?>
             </div>
@@ -79,7 +77,7 @@
                 </div>
                 <?=
                 $this->Html->link(
-                    __('More info') . ' <i class="fa fa-arrow-circle-right"></i>', ['controller' => 'Users', 'action' => 'index'], ['escape' => false, 'title' => __('More info'), 'class' => 'small-box-footer']
+                    __('More info') . ' <i class="fa fa-arrow-circle-right"></i>', ['controller' => 'Articles', 'action' => 'index'], ['escape' => false, 'title' => __('More info'), 'class' => 'small-box-footer']
                 )
                 ?>
             </div>
