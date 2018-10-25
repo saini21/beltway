@@ -12,12 +12,12 @@ use Cake\ORM\TableRegistry;
  * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController {
-    
+
     public function initialize() {
         parent::initialize();
         $this->Auth->allow(['register', 'login', 'add', 'forgotPassword', 'forgotPasswordApi', 'resetPassword', 'resetPasswordApi', 'privateCitizenApi']);
     }
-    
+
     /**
      * Index method
      *
@@ -28,9 +28,9 @@ class UsersController extends AppController {
             return $this->redirect($this->Auth->redirectUrl());
         }
     }
-    
+
     public function dashboard() {
-        
+
         //if($this->Auth->user('role') == "Politician"){
         //  return $this->redirect(['action' => 'politician']);;
         //} else {
@@ -38,8 +38,8 @@ class UsersController extends AppController {
         //}
         //Do something
     }
-    
-    
+
+
     /**
      * logout method
      */
@@ -48,7 +48,7 @@ class UsersController extends AppController {
         $this->Flash->success(__('You are now logged out'));
         return $this->redirect($this->Auth->logout());
     }
-    
+
     public function login() {
         //if already logged-in, redirect
         if ($this->Auth->user()) {
@@ -69,17 +69,16 @@ class UsersController extends AppController {
                     if ($user['role'] == "Politician") {
                         return $this->redirect(['action' => 'politician']);;
                     } else {
-                        return $this->redirect(['action' => 'privateCitizen']);
+                        return $this->redirect(['controller'=>'Articles','action' => 'platform']);
                     }
                 }
-                
             } else {
                 $this->Flash->error(__('Invalid username or password, try again'));
             }
         }
     }
-    
-    
+
+
     /**
      * Register method
      *
@@ -90,34 +89,25 @@ class UsersController extends AppController {
         if ($this->Auth->user()) {
             return $this->redirect($this->Auth->redirectUrl());
         }
-        
+
         $usaStates = $this->usaStates();
         $this->set('usaStates', $usaStates);
-        
     }
-    
+
     public function add() {
         if ($this->request->is('post')) {
             $user = $this->Users->newEntity();
             $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'newUser']);
-            
+
             if ($this->Users->save($user)) {
-                
-                $options = [
-                    'template' => 'welcome',
-                    'to' => $user->email,
-                    'subject' => _('Welcome to ' . SITE_TITLE),
-                    'viewVars' => [
-                        'name' => $user->first_name,
-                        'email' => $user->email
-                    ]
-                ];
-                
+
+                $options = ['template' => 'welcome', 'to' => $user->email, 'subject' => _('Welcome to ' . SITE_TITLE), 'viewVars' => ['name' => $user->first_name, 'email' => $user->email]];
+
                 $this->loadComponent('EmailManager');
                 $this->EmailManager->sendEmail($options);
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('You have successfully registered.'));
-                
+
                 if ($user->role == "Politician") {
                     return $this->redirect(['action' => 'politician']);;
                 } else {
@@ -136,8 +126,8 @@ class UsersController extends AppController {
             }
         }
     }
-    
-    
+
+
     /**
      * Edit Profile method
      *
@@ -146,22 +136,22 @@ class UsersController extends AppController {
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function editProfile() {
-        
+
         $user = $this->Users->get($this->Auth->user('id'));
-        
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-            
+
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('Your profile has been updated.'));
-                
+
                 return $this->redirect(['action' => 'profile']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
     }
-    
+
     /**
      * Reset Password  method
      *
@@ -173,9 +163,9 @@ class UsersController extends AppController {
         if ($this->Auth->user()) {
             return $this->redirect($this->Auth->redirectUrl());
         }
-        
+
         $this->viewBuilder()->setLayout('home');
-        
+
         $user = $this->Users->findByForgotPasswordToken($forgotPasswordToken)->first();
         if (!empty($user)) {
             $this->set('forgotPasswordToken', $forgotPasswordToken);
@@ -184,7 +174,7 @@ class UsersController extends AppController {
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
     }
-    
+
     public function resetPasswordApi() {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
@@ -214,7 +204,7 @@ class UsersController extends AppController {
         }
         echo $this->responseFormat();
     }
-    
+
     /**
      * Reset Password  method
      *
@@ -228,29 +218,21 @@ class UsersController extends AppController {
         }
         $this->viewBuilder()->setLayout('home');
     }
-    
-    
+
+
     public function forgotPasswordApi() {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->findByEmail($this->request->data['email'])->first();
-            
+
             if (!empty($user)) {
                 $user->forgot_password_token = md5(uniqid(rand(), true));
                 //$resetUrl = $this->request->scheme() . '://' . $this->request->host() . '/users/reset-password/' . $user->forgot_password_token;
                 $resetUrl = SITE_URL . '/users/reset-password/' . $user->forgot_password_token;
                 if ($this->Users->save($user)) {
-                    $options = [
-                        'template' => 'forgot_password',
-                        'to' => $this->request->data['email'],
-                        'subject' => _('Reset Password'),
-                        'viewVars' => [
-                            'name' => $user->first_name,
-                            'resetUrl' => $resetUrl,
-                        ]
-                    ];
-                    
+                    $options = ['template' => 'forgot_password', 'to' => $this->request->data['email'], 'subject' => _('Reset Password'), 'viewVars' => ['name' => $user->first_name, 'resetUrl' => $resetUrl,]];
+
                     $this->loadComponent('EmailManager');
                     $this->EmailManager->sendEmail($options);
                     $this->responseCode = SUCCESS_CODE;
@@ -261,10 +243,10 @@ class UsersController extends AppController {
                 $this->responseMessage = __('Email does not exists');
             }
         }
-        
+
         echo $this->responseFormat();
     }
-    
+
     /**
      * View Profile method
      *
@@ -273,20 +255,39 @@ class UsersController extends AppController {
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function profile() {
-        
-        
+
         $user = $this->Users->get($this->Auth->user('id'));
-        
+
         $user['password'] = "";
-        
-        
+
+
         $usaStates = $this->usaStates();
         $this->set('usaStates', $usaStates);
-        
+
         $this->set(compact('user', 'token', 'id'));
         $this->set('_serialize', ['user', 'token']);
+
+        if ($user->role == "Private Citizen") {
+            $userDetails = TableRegistry::get('UserDetails');
+            $userId = $this->Auth->user('id');
+            $userDetail = $userDetails->find('all', ['conditions' => ['user_id' => $userId]])->first();
+
+            if (empty($userDetail)) {
+                $userDetail = [];
+            }
+
+
+            $howActiveAreYouInPoliticsOptions = ['Watch the News', 'Attend rallies', 'Write to local leaders', 'Active on Social Media', 'All the above', 'None of the above'];
+
+
+            $this->set('userDetail', $userDetail);
+            $this->set('howActiveAreYouInPoliticsOptions', $howActiveAreYouInPoliticsOptions);
+            $this->render('private_citizen_profile');
+        } else {
+            $this->render('politician_profile');
+        }
     }
-    
+
     public function changeProfileImage() {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
@@ -317,37 +318,30 @@ class UsersController extends AppController {
         }
         echo $this->responseFormat();
     }
-    
+
     public function settings() {
         //Do something
     }
-    
-    
+
+
     public function privateCitizen() {
         //Do Something
-        
+
         $userDetails = TableRegistry::get('UserDetails');
         $userId = $this->Auth->user('id');
         $userDetail = $userDetails->find('all', ['conditions' => ['user_id' => $userId]])->first();
-        
+
         if (empty($userDetail)) {
             $userDetail = [];
         }
-        
-        $howActiveAreYouInPoliticsOptions = [
-            'Watch the News',
-            'Attend rallies',
-            'Write to local leaders',
-            'Active on Social Media',
-            'All the above',
-            'None of the above'
-        ];
-        
-        
+
+        $howActiveAreYouInPoliticsOptions = ['Watch the News', 'Attend rallies', 'Write to local leaders', 'Active on Social Media', 'All the above', 'None of the above'];
+
+
         $this->set('howActiveAreYouInPoliticsOptions', $howActiveAreYouInPoliticsOptions);
         $this->set('userDetail', $userDetail);
     }
-    
+
     public function privateCitizenApi($userId = null, $type = null) {
         $this->autoRender = false;
         $user = $this->Users->findById($userId)->first();
@@ -361,9 +355,9 @@ class UsersController extends AppController {
                 $subscription->role = 'Private Citizen';
                 $subscription->user_type = $type;
                 $subscription->price = ($type == "Citizen") ? '0.99' : '4.99';
-                
+
                 $subscriptions->save($subscription);
-                
+
                 $this->Flash->success(__('Thank you for subscription.'));
                 return $this->redirect(['action' => 'dashboard']);
             } else {
@@ -372,19 +366,18 @@ class UsersController extends AppController {
             }
         }
     }
-    
+
     public function politician() {
         //Do Something
         $authUser = $this->Auth->user();
         $daysOld = $this->dateDiff($authUser['created']);
-        
+
         $this->set('daysOld', $daysOld);
-        
     }
-    
+
     public function politicianApi($userId = null) {
         $this->autoRender = false;
-        
+
         $user = $this->Users->findById($userId)->first();
         if ($user) {
             $user->registration_steps_done = true;
@@ -396,7 +389,7 @@ class UsersController extends AppController {
                 $subscription->role = 'Politician';
                 $subscription->user_type = 'Politician';
                 $subscription->price = '49.99';
-                
+
                 $subscriptions->save($subscription);
                 $this->Flash->success(__('Thank you for subscription.'));
                 return $this->redirect(['controller' => 'Articles', 'action' => 'platform']);
@@ -406,8 +399,8 @@ class UsersController extends AppController {
             }
         }
     }
-    
-    
+
+
     public function saveDetails() {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
@@ -418,34 +411,28 @@ class UsersController extends AppController {
             if (empty($userDetail)) {
                 $userDetail = $userDetails->newEntity();
             }
-            
-            $howActiveAreYouInPoliticsOptions = [
-                'Watch the News',
-                'Attend rallies',
-                'Write to local leaders',
-                'Active on Social Media',
-                'All the above',
-                'None of the above'
-            ];
-            
+
+            $howActiveAreYouInPoliticsOptions = ['Watch the News', 'Attend rallies', 'Write to local leaders', 'Active on Social Media', 'All the above', 'None of the above'];
+
             $data = $this->request->getData();
-            
+
             $dataKeys = array_keys($data);
-            
+
             foreach ($howActiveAreYouInPoliticsOptions as $op) {
                 $key = str_replace(" ", "_", strtolower($op));
                 if (!in_array($key, $dataKeys)) {
                     $data[$key] = false;
                 }
             }
-            
+
             $userDetail = $userDetails->patchEntity($userDetail, $data);
-            
+
             $userDetail->user_id = $userId;
-            
+
             if ($userDetails->save($userDetail)) {
                 $this->responseCode = SUCCESS_CODE;
                 $this->responseMessage = __('Your details has been successfully saved');
+                $this->Flash->success(__('Your details has been successfully saved'));
             } else {
                 if (is_array($userDetail->errors())) {
                     foreach ($userDetail->errors() as $errors) {
@@ -456,10 +443,10 @@ class UsersController extends AppController {
                 }
             }
         }
-        
+
         echo $this->responseFormat();
     }
-    
+
     public function nonGovernmentalEmailApi() {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
@@ -478,7 +465,7 @@ class UsersController extends AppController {
         }
         echo $this->responseFormat();
     }
-    
+
     public function phoneNumberApi() {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
@@ -497,7 +484,7 @@ class UsersController extends AppController {
         }
         echo $this->responseFormat();
     }
-    
+
     public function markStepCrossed() {
         $this->autoRender = false;
         $this->responseCode = CODE_BAD_REQUEST;
@@ -509,7 +496,7 @@ class UsersController extends AppController {
                 $this->responseMessage = __('Step Crossed Marked');
             }
         }
-        
+
         echo $this->responseFormat();
     }
 }
