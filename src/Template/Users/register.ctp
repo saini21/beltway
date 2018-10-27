@@ -124,28 +124,28 @@
         </div>
         <div class="form-group">
             <div class="col-md-6">
-                <?= $this->Form->input('first_name', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'First Name']) ?>
+                <?= $this->Form->input('first_name', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'First Name *']) ?>
             </div>
             <div class="col-md-6">
-                <?= $this->Form->input('last_name', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'Last Name']) ?>
+                <?= $this->Form->input('last_name', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'Last Name *']) ?>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-12">
-                <?= $this->Form->input('email', ['class' => 'form-control place-me pl-bold', 'type' => 'text', 'label' => false, 'placeholder' => 'Email']) ?>
+                <?= $this->Form->input('email', ['class' => 'form-control place-me pl-bold', 'type' => 'text', 'label' => false, 'placeholder' => 'Email *']) ?>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-6">
-                <?= $this->Form->input('state', ['class' => 'form-control place-me pl-bold', 'type'=>'select', 'options'=>$usaStates, 'empty'=>'Select State', 'label' => false, 'style'=>'background: #c3d8eb;']) ?>
+                <?= $this->Form->input('state', ['class' => 'form-control place-me pl-bold', 'type'=>'select', 'options'=>$usaStates, 'empty'=>'Select State *', 'label' => false, 'style'=>'background: #c3d8eb;']) ?>
             </div>
             <div class="col-md-6">
-                <?= $this->Form->input('city', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'City']) ?>
+                <?= $this->Form->input('city', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'City *']) ?>
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-12">
-                <?= $this->Form->input('password', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'Password']) ?>
+                <?= $this->Form->input('password', ['class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'Password *']) ?>
             </div>
         </div>
         <div class="form-group">
@@ -180,13 +180,15 @@
         <?php } ?>
         
         $('#politician').click(function () {
-            $('#city, #state').removeClass('pl-bold');
-            $("#state").rules("add", {
+            $('#city').removeClass('pl-bold');
+            /*$("#state").rules("add", {
                 required: false
-            });
+            });*/
             $("#city").rules("add", {
                 required: false
             });
+
+            $('#city').attr('placeholder', 'City');
             
             $('#city, #state').next('label').hide();
         });
@@ -199,6 +201,8 @@
             $("#city").rules("add", {
                 required: true
             });
+
+            $('#city').attr('placeholder', 'City *');
         });
         
         
