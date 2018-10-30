@@ -23,6 +23,7 @@
                             <button>Upload Agenda</button>
                         </a>
                     <?php } */ ?>
+                    <h6 class="pull-right text-right" style="margin-top: 0px;">Share an article, photo, policy viewpoint</h6>
                 </div>
             </div>
         </div>
@@ -34,7 +35,7 @@
                     <input type="hidden" name="id" id="articleIdOnPage" value="0"/>
                     <div class="row">
                         <div class="col-lg-12">
-                            <input type="text" name="title" class="form-control" placeholder="Topic"
+                            <input type="text" name="title" class="form-control" placeholder="Title your topic"
                                    id="agendaSubjectOnPage" style="margin-bottom: 10px;">
                             <label for="agendaSubjectOnPage" class="error"
                                    style="margin-bottom:10px; display: none;"></label>
@@ -42,7 +43,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <textarea type="text" name="content" class="form-control" placeholder="Post"
+                            <textarea type="text" name="content" class="form-control" placeholder="Share an article, photo, policy viewpoint"
                                       id="agendaContentOnPage" style="height:200px; margin-bottom:10px;"></textarea>
                             <label for="agendaContentOnPage" class="error"
                                    style="margin-bottom:10px; display: none;"></label>
