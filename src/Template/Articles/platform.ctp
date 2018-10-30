@@ -54,14 +54,14 @@
                             &nbsp;
                         </div>
                         <div class="col-lg-6">
-                            <input type="submit" class="btn btn-success pull-right" value="Publish"
+                            <input type="submit" class="btn btn-success pull-right text-bold" style="font-weight: bold;" value="Publish"
                                    id="publishAgendaBtnOnPage"/>
                             
                             <div style="height:0px;overflow:hidden">
                                 <input type="file" id="fileInput" name="atricle_image"/>
                             </div>
                             <button type="button" onclick="chooseFile();" class="btn btn-primary pull-right"
-                                    style="margin-right:20px; "><i
+                                    style="margin-right:20px; font-weight: bold;"><i
                                     class="fa fa-image"></i> Photo
                             </button>
                             
