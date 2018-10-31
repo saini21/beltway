@@ -1,3 +1,4 @@
+<?php $this->assign('title', __('Platform')); ?>
 <div class="col-md-2">
     <!--
     <?php if ($showBtn) { ?>

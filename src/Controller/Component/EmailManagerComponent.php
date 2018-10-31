@@ -8,14 +8,14 @@ use Cake\Network\Exception\NotFoundException;
 use App\Mailer\Transport\CustomTransport;
 
 class EmailManagerComponent extends Component {
-
+    
     private $emailResponse;
-
+    
     public function sendEmail($options = []) {
         $this->emailResponse['error'] = true;
         $siteUrl = $this->request->scheme() . '://' . $this->request->host();
         $defaultOptions = [
-            'template' => 'deafult',
+            'template' => 'default',
             'layout' => 'default',
             'emailFormat' => 'both',
             'to' => null,
@@ -29,7 +29,7 @@ class EmailManagerComponent extends Component {
                 'appUrl' => $siteUrl
             ]
         ];
-
+        
         if (!empty($options['viewVars'])) {
             $options['viewVars'] = array_merge($defaultOptions['viewVars'], $options['viewVars']);
         }
@@ -40,13 +40,14 @@ class EmailManagerComponent extends Component {
             $options['sender'] = array_merge($defaultOptions['sender'], $options['sender']);
         }
         $finalOptions = array_merge($defaultOptions, $options);
-
+        
         extract($finalOptions);
         $hasDestination = false;
         try {
             $email = new Email();
-            $email->from($from);
-            $email->template($template, $layout);
+            $email->setFrom($from);
+            $email->setTemplate($template, $layout);
+            
             if ($to != null) {
                 if (filter_var($to, FILTER_VALIDATE_EMAIL)) {
                     $email->to($to);
@@ -64,14 +65,14 @@ class EmailManagerComponent extends Component {
                         $hasDestination = false;
                 }
             }
-
+            
             if ($sender != null) {
-                $email->sender(array_keys($sender)[0], array_Values($sender)[0]);
+                $email->setSender($sender);
             }
-
-            $email->emailFormat($emailFormat);
-            $email->subject($subject);
-            $email->viewVars($viewVars);
+            
+            $email->setEmailFormat($emailFormat);
+            $email->setSubject($subject);
+            $email->setViewVars($viewVars);
             if ($hasDestination) {
                 $this->emailResponse['error'] = false;
                 $this->emailResponse['status'] = 'Email Sent';
@@ -84,7 +85,7 @@ class EmailManagerComponent extends Component {
         }
         return $this->emailResponse;
     }
-
+    
 }
 
 ?>

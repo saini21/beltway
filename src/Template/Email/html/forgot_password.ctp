@@ -1,5 +1,5 @@
 <div style="width:620px;max-width:620px;margin:auto;border:1px solid rgb(194,194,194)">
-    <div style="background:none repeat scroll 0 0 #047DE5;height:47px;width:100%">
+    <div style="height:47px;width:100%">
         <span style="display:inline-block;margin:5px 0px 0px;width:100%;text-align:center;line-height:50px"><img src="<?= $logo ?>" class="CToWUd" alt="<?= SITE_TITLE ?>"></span>
     </div>
     <div style="padding:0px 20px 20px 20px">

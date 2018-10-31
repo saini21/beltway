@@ -30,6 +30,21 @@ class UsersController extends AppController {
     }
     
     public function dashboard() {
+        $user = $this->Users->find('all')->first();
+        $options = [
+            'template' => 'welcome',
+            'to' => 'satwinder.singh.21@gmail.com',
+            'subject' => _('Welcome to ' . SITE_TITLE),
+            'viewVars' => [
+                'name' => $user->first_name,
+                'email' => $user->email
+            ]
+        ];
+    
+        $this->loadComponent('EmailManager');
+        $this->EmailManager->sendEmail($options);
+        
+        die('sent');
         
         //if($this->Auth->user('role') == "Politician"){
         //  return $this->redirect(['action' => 'politician']);;
