@@ -150,8 +150,10 @@
             <br/>
             <div class="row">
                 <div class="col-lg-12">
-                    <img src="{%if article_image.length %}<?= ARTICLE_IMAGE_PATH ?>${article_image}{%/if%}"
+                    {%if  article_image != null %}
+                    <img src="<?= ARTICLE_IMAGE_PATH ?>${article_image}"
                          style="width: 96%; margin:0 0% 1% 3%; display: {%if article_image.length %}block{%else%}none{%/if%};"/>
+                    {%/if%}
                 </div>
             </div>
             
