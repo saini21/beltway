@@ -101,10 +101,10 @@ class UsersController extends AppController {
 
             if ($this->Users->save($user)) {
 
-                $options = ['template' => 'welcome', 'to' => $user->email, 'subject' => _('Welcome to ' . SITE_TITLE), 'viewVars' => ['name' => $user->first_name, 'email' => $user->email]];
-
-                $this->loadComponent('EmailManager');
-                $this->EmailManager->sendEmail($options);
+                //~ $options = ['template' => 'welcome', 'to' => $user->email, 'subject' => _('Welcome to ' . SITE_TITLE), 'viewVars' => ['name' => $user->first_name, 'email' => $user->email]];
+//~ 
+                //~ $this->loadComponent('EmailManager');
+                //~ $this->EmailManager->sendEmail($options);
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('You have successfully registered.'));
 
