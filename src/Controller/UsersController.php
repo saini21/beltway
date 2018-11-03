@@ -15,7 +15,7 @@ class UsersController extends AppController {
     
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['register', 'login', 'add', 'forgotPassword', 'forgotPasswordApi', 'resetPassword', 'resetPasswordApi', 'privateCitizenApi']);
+        $this->Auth->allow(['register','isUniqueEmail', 'login', 'add', 'forgotPassword', 'forgotPasswordApi', 'resetPassword', 'resetPasswordApi', 'privateCitizenApi']);
     }
     
     /**
@@ -37,7 +37,8 @@ class UsersController extends AppController {
             'subject' => _('Welcome to ' . SITE_TITLE),
             'viewVars' => [
                 'name' => $user->first_name,
-                'email' => $user->email
+                'email' => $user->email,
+                'password' => '123456789'
             ]
         ];
     
@@ -69,8 +70,9 @@ class UsersController extends AppController {
         if ($this->Auth->user()) {
             return $this->redirect($this->Auth->redirectUrl());
         }
-        //pr($this->request->session()->read('Auth.User'));
+        
         if ($this->request->is('post') || $this->request->query('provider')) {
+            $data = $this->request->getData();
             $user = $this->Auth->identify();
             if ($user) {
                 if (isset($this->request->data['remember_me'])) {
@@ -114,6 +116,8 @@ class UsersController extends AppController {
             $user = $this->Users->newEntity();
             $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'newUser']);
             
+            $password = $this->request->getData('password');
+            
             if ($this->Users->save($user)) {
                 
                 $options = [
@@ -122,7 +126,8 @@ class UsersController extends AppController {
                     'subject' => _('Welcome to ' . SITE_TITLE),
                     'viewVars' => [
                         'name' => $user->first_name,
-                        'email' => $user->email
+                        'email' => $user->email,
+                        'password' => $password,
                     ]
                 ];
                 
@@ -164,7 +169,13 @@ class UsersController extends AppController {
         
         if ($this->request->is(['patch', 'post', 'put'])) {
             
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $data = $this->request->getData();
+            
+            if(empty($data['password'])){
+                unset($data['password']);
+            }
+            
+            $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('Your profile has been updated.'));
@@ -281,8 +292,7 @@ class UsersController extends AppController {
         
         $user = $this->Users->get($this->Auth->user('id'));
         
-        $user['password'] = "";
-        
+        unset($user->password);
         
         $usaStates = $this->usaStates();
         $this->set('usaStates', $usaStates);
@@ -309,6 +319,28 @@ class UsersController extends AppController {
         } else {
             $this->render('politician_profile');
         }
+    }
+    
+    public function isUniqueEmail($id = null) {
+        $this->autoRender = false;
+        if ($id === null) {
+            if ($this->Users->findByEmail($this->request->query['email'])->count()) {
+                $alreadyExists = "false";
+            } else {
+                $alreadyExists = "true";
+            }
+        } else {
+            $count = $this->Users->find()
+                ->where(['id !=' => $id, 'email' => $this->request->query['email']])
+                ->count();
+            if ($count) {
+                $alreadyExists = "false";
+            } else {
+                $alreadyExists = "true";
+            }
+        }
+        echo $alreadyExists;
+        exit;
     }
     
     public function changeProfileImage() {

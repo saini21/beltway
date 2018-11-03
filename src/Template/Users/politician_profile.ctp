@@ -1,6 +1,6 @@
 <h1><?= $authUser['first_name']; ?> <?= $authUser['last_name']; ?></h1>
 <br/>
-
+<h3>Profile Image</h3>
 <form class="img-form" id="uploadProfileForm"
       action="<?= $this->Url->build(['controller' => 'Users', 'action' => 'changeProfileImage']); ?>"
       enctype="multipart/form-data">
@@ -12,16 +12,17 @@
             <div class="col-lg-5">
                 <input type="file" class="custom-file-upload form-control" style="width: 200px; margin: 15px 0 0 0;"
                        name="profile_image">
-                <input type="submit" style="margin:12px 0 0 0px; float: right;" class="upload"
-                       value="Update Profile Image">
+                <button style="margin:12px 0 0 0px; float: right;" class="btn btn-lg btn-info"><b>Update Profile Image</b></button>
             </div>
             <div class="col-lg-6" style="text-align: right"></div>
         </div>
     </div>
 </form>
-
-
 <br/>
+<hr /><hr />
+<br/>
+
+<h3>General Information</h3>
 <?= $this->Form->create($user, ['url' => ['controller' => 'Users', 'action' => 'editProfile'], 'id' => 'editProfileForm', 'class' => ""]) ?>
 <div class="form-group">
     <div class="col-md-6">
@@ -46,7 +47,7 @@
 </div>
 <div class="form-group">
     <div class="col-md-12">
-        <?= $this->Form->input('password', ['class' => 'form-control place-me', 'placeholder' => 'Password']) ?>
+        <?= $this->Form->input('password', ['class' => 'form-control place-me', 'placeholder' => 'Password', 'autocomplete' => 'off', 'required'=>false]) ?>
     </div>
 </div>
 <div class="form-group">
@@ -60,6 +61,11 @@
 
 <script type="text/javascript">
     $(function () {
+    
+    
+        setTimeout(function () {
+            $('#password').val('');
+        }, 1000);
 
         $("#uploadProfileForm").on('submit', (function (e) {
 
@@ -101,13 +107,7 @@
                     required: true,
                     email: true
                 },
-                password: {
-                    required: true
-                },
                 state: {
-                    required: true
-                },
-                city: {
                     required: true
                 }
             },
@@ -125,14 +125,8 @@
                     required: "Please enter email.",
                     email: "Please enter valid email."
                 },
-                password: {
-                    required: "Please enter password."
-                },
                 state: {
                     required: "Please enter your state."
-                },
-                city: {
-                    required: "Please enter your city."
                 }
             }
         });

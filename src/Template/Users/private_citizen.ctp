@@ -178,7 +178,7 @@
                         <br />
                         <div class="col-md-12 pull-right text-right">
                             <!-- input type="submit" class="red-submit" id="memberStatus"/ -->
-                            <a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'platform']); ?>"><input type="submit" class="btn btn-info btn-lg" value="Join" /></a>
+                            <input type="submit" class="btn btn-info btn-lg" value="Join" />
                         </div>
                     </div>
                 </form>
@@ -220,7 +220,7 @@
                     </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <a href="<?= $this->Url->build(['controller' => 'Articles', 'action' => 'platform']); ?>"><input type="submit" class="btn btn-info" value="Join" /></a>
+                        |<input type="submit" class="btn btn-info" value="Join" />
                     </div>
                 </div>
                 </form>
@@ -374,7 +374,7 @@
                             $('#stepOne').hide('drop', options, 700, function () {
                                 $("#stepTwo").fadeIn(1000);
                             });*/
-                            window.location.href = SITE_URL + "/platform"
+                            window.location.href = SITE_URL + "platform"
                         } else {
                             $().showFlashMessage("error", response.message);
                             $('#resetPasswordBtn').button('<Reset Password <em></em>');

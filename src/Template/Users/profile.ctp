@@ -1,6 +1,6 @@
 <h1><?= $authUser['first_name']; ?> <?= $authUser['last_name']; ?></h1>
 <br/>
-
+<h2>Profile Image</h2>
 <form class="img-form" id="uploadProfileForm"
       action="<?= $this->Url->build(['controller' => 'Users', 'action' => 'changeProfileImage']); ?>"
       enctype="multipart/form-data">
@@ -22,6 +22,7 @@
 
 
 <br/>
+<h2>Profile Image</h2>
 <?= $this->Form->create($user, ['url' => ['controller' => 'Users', 'action' => 'editProfile'], 'id' => 'editProfileForm', 'class' => ""]) ?>
 <div class="form-group">
     <div class="col-md-6">
@@ -46,7 +47,7 @@
 </div>
 <div class="form-group">
     <div class="col-md-12">
-        <?= $this->Form->input('password', ['class' => 'form-control place-me', 'placeholder' => 'Password']) ?>
+        <?= $this->Form->input('password', ['class' => 'form-control place-me', 'placeholder' => 'Password', 'autocomplete' => 'off']) ?>
     </div>
 </div>
 <div class="form-group">

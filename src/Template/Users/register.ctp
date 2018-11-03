@@ -150,6 +150,11 @@
         </div>
         <div class="form-group">
             <div class="col-md-12">
+                <?= $this->Form->input('confirm_password', ['type'=>'password', 'class' => 'form-control place-me pl-bold', 'label' => false, 'placeholder' => 'Confirm Password *']) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
                 <label class="checkbox-c" for="iAgree">
                     <input type="checkbox" id="iAgree" name="i_agree" value="true">
                     <span class="checkmark"></span>
@@ -178,6 +183,10 @@
                $('#freeMembership').modal('show');
             }, 1000);
         <?php } ?>
+    
+        setTimeout(function () {
+            $('#password').val('');
+        }, 1000);
         
         $('#politician').click(function () {
             $('#city').removeClass('pl-bold');
@@ -218,10 +227,15 @@
                 },
                 email: {
                     required: true,
-                    email: true
+                    email: true,
+                    remote: SITE_URL+'/users/isUniqueEmail'
                 },
                 password: {
-                    required: true
+                    required: true,
+                },
+                confirm_password: {
+                    required: true,
+                    equalTo: "#password"
                 },
                 city: {
                     required: true
@@ -245,10 +259,15 @@
                 },
                 email: {
                     required: "Please enter email.",
-                    email: "Please enter valid email."
+                    email: "Please enter valid email.",
+                    remote:"Email already exists"
                 },
                 password: {
-                    required: "Please enter password."
+                    required: "Please enter password.",
+                },
+                confirm_password: {
+                    required: "Please confirm password.",
+                    equalTo: "Password does not match"
                 },
                 city: {
                     required: "Please enter city."
