@@ -47,7 +47,6 @@ class ArticlesController extends AppController {
             $showBtn = true;
         }
     
-        $this->Flash->success(__('Your details has been successfully saved'));
         $this->set('showBtn', $showBtn);
         
     }
