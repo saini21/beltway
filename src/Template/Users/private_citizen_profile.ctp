@@ -81,17 +81,17 @@
                 <?= $this->Html->image(
                     '/files/Users/profile_image/thumbnail-' . $authUser['profile_image'], ['width' => 80, 'height' => 80, 'class' => 'user-menu-img', 'title' => $authUser['first_name']]); ?>
             </div>
-            <div class="col-lg-5">
-                <input type="file" class="custom-file-upload form-control" style="width: 200px; margin: 15px 0 0 0;"
-                       name="profile_image">
-                <button style="margin:12px 0 0 0px; float: right;" class="btn btn-lg btn-info"><b>Update Profile Image</b></button>
+            <div class="col-lg-6">
+                <input type="file" class="custom-file-upload form-control" style="width: 300px; margin: 15px 0 0 0;" name="profile_image">
+                <button style="margin:5px 0 0 0px; float: right;" class="btn btn-lg btn-info"><b>Update Profile Image</b></button>
             </div>
-            <div class="col-lg-6" style="text-align: right"></div>
+            <div class="col-lg-4" style="text-align: right"></div>
         </div>
     </div>
 </form>
 <br/>
-<hr /><hr />
+<hr />
+<hr />
 <br/>
 <h3>General Information</h3>
 <?= $this->Form->create($user, ['url' => ['controller' => 'Users', 'action' => 'editProfile'], 'id' => 'editProfileForm', 'class' => ""]) ?>
@@ -122,8 +122,8 @@
     </div>
 </div>
 <div class="form-group">
-    <div class="col-md-12">
-        <?= $this->Form->button(__('UPDATE'), ['id' => 'registerBtn', 'class' => "btn btn-success btn-lg"]) ?>
+    <div class="col-md-12 text-right">
+        <button id="registerBtn" class="font-bold btn btn-info btn-lg" type="submit"><b>Update</b></button>
     </div>
 </div>
 <?= $this->Form->end() ?>
@@ -253,11 +253,12 @@
 </div>
 <?php } */ ?>
 
+<br />
+
 <div id="stepOne" class="row" style="display:block">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="pc">
-            <h4>Electorate</h4>
+            <h4 style="text-align: left; ">Electorate - Questions</h4>
             <div class="form-part-one">
                 <div class="row">
                     <div class="col-lg-11 "></div>
@@ -286,8 +287,6 @@
 
                         <label for="are_you_a_registered_voter" class="error private-citizen-error"
                                style="float: left; width: 100%;">Please choose one option.</label>
-
-
                     </div>
 
                     <div class="form-group">
@@ -355,7 +354,7 @@
                         <br />
                         <div class="col-md-12 pull-right text-right">
                             <!-- input type="submit" class="red-submit" id="memberStatus"/ -->
-                            <input type="submit" class="btn btn-info btn-lg" value="Join" />
+                            <button class="btn btn-lg btn-info"><b>Update</b></button>
                         </div>
                     </div>
                 </form>
