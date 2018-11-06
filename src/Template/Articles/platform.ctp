@@ -24,13 +24,13 @@
                             <button>Upload Agenda</button>
                         </a>
                     <?php } */ ?>
-                    <h6 class="pull-right text-right" style="margin-top: 0px;">Share an article, photo, policy viewpoint</h6>
+                    <h6 class="pull-right text-right btn btn-info" style="margin-top: 0px;" id="sharePostBtn"><b>Share an article, photo, policy viewpoint</b></h6>
                 </div>
             </div>
         </div>
         <br>
         <hr>
-        <div class="row">
+        <div class="row" id="contentFormBox" style="display: none;">
             <div class="col-lg-12">
                 <form action="javascript:void(0);" id="agendaFormOnPage" enctype="multipart/form-data">
                     <input type="hidden" name="id" id="articleIdOnPage" value="0"/>
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="clear"></div>
-        <hr>
+        <hr id="contentFormBoxHr" style="display: none">
         <div id="atricles"></div>
     
     </div>
@@ -626,6 +626,10 @@
                 
             });
             
+        });
+        
+        $('#sharePostBtn').click(function () {
+            $('#contentFormBox, #contentFormBoxHr').fadeToggle();
         });
         
     });
