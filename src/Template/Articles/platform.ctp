@@ -558,7 +558,6 @@
                                 $('#siteBaseUrl').html('Fetching Preview...');
                                 $('#previewImage img').attr('src', '');
                                 $('#siteTitle, #siteDescription').html('');
-                                $('.link-fields').val('');
                             },
                             success: function (resp) {
                                 if (resp.code == 200) {
