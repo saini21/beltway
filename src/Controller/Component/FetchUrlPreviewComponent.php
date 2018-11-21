@@ -68,7 +68,7 @@ class FetchUrlPreviewComponent extends Component {
         
         $response['alternate_image'] = SITE_URL . "/img/preview.png";
         
-        $imageDimentions = [];
+        $imageDimensions = [];
         $images = [];
         
         foreach ($imageTags as $img) {
@@ -91,12 +91,12 @@ class FetchUrlPreviewComponent extends Component {
                     
                     
                     list($width, $height) = getimagesize($finalImageUrl);
-                    if ($width >= 200 && $height >= 200) {
+                    if ($width >= 200) {
                         $response['image'] = $finalImageUrl;
-                        $imageDimentions[] = $width * $height;
+                        $imageDimensions[] = $width * $height;
                         $images[] = $finalImageUrl;
                         
-                        if(count($images) > 10){
+                        if(count($images) > 5){
                             break;
                         }
                     }
@@ -108,9 +108,9 @@ class FetchUrlPreviewComponent extends Component {
                 }
             }
         }
-       
-        if(count($imageDimentions) > 1) {
-            $index = $this->largestImage($imageDimentions);
+        
+        if(count($imageDimensions) > 1) {
+            $index = $this->largestImage($imageDimensions);
             $response['image'] = $images[$index];
         }
         
@@ -119,7 +119,7 @@ class FetchUrlPreviewComponent extends Component {
     }
     
     function largestImage($array){
-        return array_keys($array, max($array));
+        return array_keys($array, max($array))[0];
     }
     
     
