@@ -68,6 +68,9 @@ class FetchUrlPreviewComponent extends Component {
         
         $response['alternate_image'] = SITE_URL . "/img/preview.png";
         
+        $imageDimentions = [];
+        $images = [];
+        
         foreach ($imageTags as $img) {
             $requiredWidth = true;
             if (isset($img['attributes']['width'])) {
@@ -88,9 +91,14 @@ class FetchUrlPreviewComponent extends Component {
                     
                     
                     list($width, $height) = getimagesize($finalImageUrl);
-                    if ($width >= 200) {
+                    if ($width >= 200 && $height >= 200) {
                         $response['image'] = $finalImageUrl;
-                        break;
+                        $imageDimentions[] = $width * $height;
+                        $images[] = $finalImageUrl;
+                        
+                        if(count($images) > 10){
+                            break;
+                        }
                     }
                     
                     if ($response['alternate_image'] == SITE_URL . "/img/preview.png") {
@@ -100,10 +108,18 @@ class FetchUrlPreviewComponent extends Component {
                 }
             }
         }
-        
+       
+        if(count($imageDimentions) > 1) {
+            $index = $this->largestImage($imageDimentions);
+            $response['image'] = $images[$index];
+        }
         
         return $response;
         
+    }
+    
+    function largestImage($array){
+        return array_keys($array, max($array));
     }
     
     
@@ -240,6 +256,8 @@ class FetchUrlPreviewComponent extends Component {
         $url = str_replace("&amp;", '&', $url);
         
         $process = curl_init($url);
+        curl_setopt($process, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($process, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($process, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($process, CURLOPT_HEADER, 0);
         curl_setopt($process, CURLOPT_USERAGENT, $this->user_agent);
