@@ -631,6 +631,13 @@
             $('#contentFormBox, #contentFormBoxHr').fadeToggle();
         });
         
+        
+        <?php if(!empty($authUser['welcome_token'])){ ?>
+            setTimeout(function () {
+                $.get(SITE_URL + "/users/send-welcome-email");
+            }, 2000);
+        <?php } ?>
+        
     });
 
 

@@ -52,6 +52,7 @@ class User extends Entity {
         'forgot_password_token' => true,
         'active' => true,
         'step_crossed' => true,
+        'welcome_token' => true,
         'created' => true,
         'modified' => true
     ];

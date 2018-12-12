@@ -15,7 +15,7 @@ class UsersController extends AppController {
     
     public function initialize() {
         parent::initialize();
-        $this->Auth->allow(['register','isUniqueEmail', 'login', 'add', 'forgotPassword', 'forgotPasswordApi', 'resetPassword', 'resetPasswordApi', 'privateCitizenApi']);
+        $this->Auth->allow(['register', 'isUniqueEmail', 'login', 'add', 'forgotPassword', 'forgotPasswordApi', 'resetPassword', 'resetPasswordApi', 'privateCitizenApi']);
     }
     
     /**
@@ -41,7 +41,7 @@ class UsersController extends AppController {
                 'password' => '123456789'
             ]
         ];
-    
+        
         $this->loadComponent('EmailManager');
         $this->EmailManager->sendEmail($options);
         
@@ -118,21 +118,11 @@ class UsersController extends AppController {
             
             $password = $this->request->getData('password');
             
+            $user->welcome_token = $password;
+            
             if ($this->Users->save($user)) {
                 
-                $options = [
-                    'template' => 'welcome',
-                    'to' => $user->email,
-                    'subject' => _('Welcome to ' . SITE_TITLE),
-                    'viewVars' => [
-                        'name' => $user->first_name,
-                        'email' => $user->email,
-                        'password' => $password,
-                    ]
-                ];
                 
-                $this->loadComponent('EmailManager');
-                $this->EmailManager->sendEmail($options);
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('You have successfully registered.'));
                 
@@ -155,6 +145,30 @@ class UsersController extends AppController {
         }
     }
     
+    public function sendWelcomeEmail() {
+        
+        $user = $this->Users->find('all')->where(['Users.id' => $this->Auth->user('id')])->first();
+        if (!empty($user->welcome_token)) {
+            $options = [
+                'template' => 'welcome',
+                'to' => $user->email,
+                'subject' => _('Welcome to ' . SITE_TITLE),
+                'viewVars' => [
+                    'name' => $user->first_name,
+                    'email' => $user->email,
+                    'password' => $user->welcome_token,
+                ]
+            ];
+            
+            $this->loadComponent('EmailManager');
+            $this->EmailManager->sendEmail($options);
+            
+            $this->Users->updateAll(['welcome_token' => ''], ['Users.id' => $this->Auth->user('id')]);
+        }
+        
+        exit;
+    }
+    
     
     /**
      * Edit Profile method
@@ -171,7 +185,7 @@ class UsersController extends AppController {
             
             $data = $this->request->getData();
             
-            if(empty($data['password'])){
+            if (empty($data['password'])) {
                 unset($data['password']);
             }
             
