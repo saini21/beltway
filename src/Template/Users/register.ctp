@@ -176,6 +176,26 @@
 </div>
 <?= $this->element('free_membership') ?>
 
+<div class="modal fade" id="pleaseWait" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-bg">
+                <h5 class="modal-title" id="exampleModalLongTitle">Please wait..</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please wait..., it will take few seconds.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function () {
         <?php if(!isset($this->request->query['show'])){ ?>
@@ -278,7 +298,11 @@
                 i_agree: {
                     required: "Please agree terms and conditions and privacy policy."
                 }
-            }
+            },
+             submitHandler: function () { 
+				   $('#pleaseWait').modal('show');
+				   $('#registerBtn').prop('disabled', true);
+			   }
         });
         
         $(document).on("click", "#register_btn", function () {
