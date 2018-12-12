@@ -12,7 +12,7 @@
                 <h2>Contact Us</h2>
                 <p>This site is for those who want their voice to be heard and shared!<br /><br />  Our only agenda is to allow an unfiltered and constructive politically focused debate.<br /><br />
                     <span style="font-size: 18px; font-weight: bold; margin-bottom:10px; width:100%; float:left;">Email Address:</span><br />
-                <span style="font-size: 14px;"><a href="mailto:info@beltwaygraffiti.com?Subject=Hello%20" target="_top">info@beltwaygraffiti.com</a> – General inquiries.  We’ll respond in a timely manner. </span><br />
+                <span style="font-size: 14px;"><a href="mailto:admin@beltwaygraffiti.com?Subject=Hello%20" target="_top">admin@beltwaygraffiti.com</a> – General inquiries.  We’ll respond in a timely manner. </span><br />
     
                 <span style="font-size: 14px;"><a href="mailto:david@beltwaygraffiti.com?Subject=Hello%20" target="_top">david@beltwaygraffiti.com</a> – Connect  with our Founder!  David is receptive to all questions and ideas on how to improve the service.</span><br /><br />
     
