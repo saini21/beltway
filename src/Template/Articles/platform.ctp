@@ -415,7 +415,7 @@
             $.ajax({
                 url: SITE_URL + "/article-comments/save-api/",
                 type: "POST",
-                data: {article_id: articleId, comment, id: commentId},
+                data: {article_id: articleId, comment:comment, id: commentId},
                 dataType: "json",
                 success: function (response) {
                     
@@ -630,6 +630,13 @@
         $('#sharePostBtn').click(function () {
             $('#contentFormBox, #contentFormBoxHr').fadeToggle();
         });
+        
+        
+        <?php if(!empty($authUser['welcome_token'])){ ?>
+            setTimeout(function () {
+                $.get(SITE_URL + "/users/send-welcome-email");
+            }, 2000);
+        <?php } ?>
         
     });
 
