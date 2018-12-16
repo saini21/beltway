@@ -109,6 +109,7 @@ class FetchUrlPreviewComponent extends Component {
             }
         }
         
+        
         if(count($imageDimensions) > 1) {
             $index = $this->largestImage($imageDimensions);
             $response['image'] = $images[$index];

@@ -1,4 +1,33 @@
 <?php $this->assign('title', __('Platform')); ?>
+<?php
+echo $this->Html->css(['uploadfile']);
+echo $this->Html->script(['jquery.uploadfile']);
+?>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"/>
+<style>
+    .article-no-image {
+        display: none !important;
+    }
+    
+    .article-one-image {
+        width: 90%;
+        float: left;
+        height: auto;
+        margin: 1%;
+        padding: 1%;
+    }
+    
+    .article-multiple-images {
+        width: 45%;
+        height: auto;
+        margin: 1%;
+        padding: 1%;
+        max-width: 270px;
+        max-height: 156px;
+        float: left;
+    }
+</style>
 <div class="col-md-2">
     <!--
     <?php if ($showBtn) { ?>
@@ -24,7 +53,8 @@
                             <button>Upload Agenda</button>
                         </a>
                     <?php } */ ?>
-                    <h6 class="pull-right text-right btn btn-info" style="margin-top: 0px;" id="sharePostBtn"><b>Share an article, photo, policy viewpoint</b></h6>
+                    <h6 class="pull-right text-right btn btn-info" style="margin-top: 0px;" id="sharePostBtn"><b>Share
+                            an article, photo, policy viewpoint</b></h6>
                 </div>
             </div>
         </div>
@@ -44,18 +74,23 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <textarea type="text" name="content" class="form-control" placeholder="Share an article, photo, policy viewpoint"
+                            <textarea type="text" name="content" class="form-control"
+                                      placeholder="Share an article, photo, policy viewpoint"
                                       id="agendaContentOnPage" style="height:200px; margin-bottom:10px;"></textarea>
                             <label for="agendaContentOnPage" class="error"
                                    style="margin-bottom:10px; display: none;"></label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 text-right" id="selectedFile" style="color: #337ab7">
-                            &nbsp;
+                        
+                        
+                        <div class="col-lg-6 text-right" style="color: #337ab7">
+                            <p id="allowedFiles" class="blink">Only JPG, JPEG AND PNG are supported</p>
+                            <p id="fileLimit" class="blink1" style="display:none;">You can upload maximum 10 images.</p>
                         </div>
                         <div class="col-lg-6">
-                            <input type="submit" class="btn btn-success pull-right text-bold" style="font-weight: bold;" value="Publish"
+                            <input type="submit" class="btn btn-success pull-right text-bold" style="font-weight: bold;"
+                                   value="Publish"
                                    id="publishAgendaBtnOnPage"/>
                             
                             <div style="height:0px;overflow:hidden">
@@ -68,7 +103,7 @@
                             
                             <script>
                                 function chooseFile() {
-                                    document.getElementById("fileInput").click();
+                                    document.getElementById("ajax-upload-id").click();
                                 }
                             
                             </script>
@@ -78,6 +113,16 @@
                         
                         
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-1">&nbsp;</div>
+                        <div class="col-lg-10 text-right" style="color: #337ab7">
+                            <div id="multipleFileUploader" style="display: none"></div>
+                            
+                            <div class="ajax-file-upload-container" id="ajaxContainer"></div>
+                            <input type="hidden" name="article_images" id="articleImages" value=""/>
+                        </div>
+                        <div class="col-lg-1">&nbsp;</div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -144,16 +189,26 @@
                         <span class="edit_article" id="editArticle_${id}" title="Edit Agenda">
                             <i class="fa fa-pencil"></i>
                         </span>
+                        <span class="remove_article" id="removeArticle_${id}" title="Remove Agenda">
+                            <i class="fa fa-remove"></i>
+                        </span>
                         {%/if%}
                     <?php } ?>
                 </div>
             </div>
             <br/>
             <div class="row">
-                <div class="col-lg-12">
-                    {%if  article_image != null %}
-                    <img src="<?= ARTICLE_IMAGE_PATH ?>${article_image}"
-                         style="width: 96%; margin:0 0% 1% 3%; display: {%if article_image.length %}block{%else%}none{%/if%};"/>
+                <div class="col-lg-12 text-left">
+                    {%if article_images == null %}
+                    &nbsp;
+                    {%else%}
+                    {{each(index, val) images = article_images.split(',')}}
+                    <div class=" {%if images.length == 1 %} article-one-image {%else%} article-multiple-images {%/if%}">
+                        <a data-toggle="lightbox" rel="gp_${id}" href="<?= SITE_URL ?>${val}">
+                            <img src="<?= SITE_URL ?>${val}" style="width: 100%; height: 100%; object-fit: contain;"/>
+                        </a>
+                    </div>
+                    {{/each}}
                     {%/if%}
                 </div>
             </div>
@@ -311,9 +366,7 @@
                 formData.append('link_title', $('#linkTitle').val());
                 formData.append('link_description', $('#linkDescription').val());
                 formData.append('link_image', $('#linkImage').val());
-                formData.append('article_image', $('input[type=file]')[0].files[0]);
-                
-                console.log(JSON.stringify(new FormData));
+                formData.append('article_images', $('#articleImages').val());
                 
                 if (!photoTypeError) {
                     $.ajax({
@@ -415,7 +468,7 @@
             $.ajax({
                 url: SITE_URL + "/article-comments/save-api/",
                 type: "POST",
-                data: {article_id: articleId, comment:comment, id: commentId},
+                data: {article_id: articleId, comment: comment, id: commentId},
                 dataType: "json",
                 success: function (response) {
                     
@@ -633,12 +686,106 @@
         
         
         <?php if(!empty($authUser['welcome_token'])){ ?>
-            setTimeout(function () {
-                $.get(SITE_URL + "/users/send-welcome-email");
-            }, 2000);
+        setTimeout(function () {
+            $.get(SITE_URL + "/users/send-welcome-email");
+        }, 2000);
         <?php } ?>
+        
+        var settings = {
+            url: SITE_URL + "/articles/upload",
+            method: "POST",
+            allowedTypes: "jpg,jpeg,png",
+            fileName: "file",
+            multiple: true,
+            showQueueDiv: 'ajaxContainer',
+            showError: false,
+            dragdropWidth: '100%',
+            statusBarWidth: '100%',
+            showFileCounter: false,
+            maxFileCount: 10,
+            showDelete: true,
+            onSuccess: function (files, data, xhr, pd) {
+                //
+                var d = JSON.parse(data);
+                
+                if (d.code == 400) {
+                    pd.progressbar.removeClass('ajax-file-upload-bar').addClass('ajax-file-upload-red').html("Failed");
+                }
+                
+                if (d.code == 200) {
+                    var images = [];
+                    if ($('#articleImages').val().length > 0) {
+                        images = $('#articleImages').val().split(',');
+                    }
+                    images.push(d.data.path);
+                    $('#articleImages').val(images.join(","));
+                }
+            },
+            onSelect: function (files) {
+                if (files.length > 10) {
+                    //Blink 5 Times
+                    blinkLimit();
+                    blinkLimit();
+                    blinkLimit();
+                    blinkLimit();
+                    blinkLimit();
+                    return false;
+                } else {
+                    $('#fileLimit').hide();
+                }
+                
+            },
+            onError: function (files, status, errMsg) {
+                $("#finalStatus").html("<font color='red'>Upload is Failed</font>");
+            },
+            deleteCallback: function (data, pd) {
+                var d = JSON.parse(data);
+                if (d.code == 200) {
+                    var images = $('#articleImages').val().split(',');
+                    var finalImages = [];
+                    $.each(images, function (i, img) {
+                        if (d.data.path != img) {
+                            finalImages.push(img);
+                        }
+                    });
+                    $('#articleImages').val(finalImages.join(","));
+                }
+            },
+        }
+        $("#multipleFileUploader").uploadFile(settings);
+        
+        function blinkLimit() {
+            $('.blink1').fadeOut(500);
+            $('.blink1').fadeIn(500);
+            $('#fileLimit').css('color', "#ea4d4d").css('font-weight', "bold");
+        }
+        
+        
+        $('#atricles').on('click', '.remove_article', function () {
+            if (confirm("Are you sure you want to remove this agenda?")) {
+                var id = $(this).attr('id').split('_')[1];
+                
+                $.ajax({
+                    url: SITE_URL + "/articles/remove-article-api/" + id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+                        $('#article_' + id).fadeOut();
+                        $('#article_' + id).remove();
+                    }
+                });
+            }
+        });
+    
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox();
+        });
+    
         
     });
 
 
 </script>
+
+<?php /* ALTER TABLE  `articles` CHANGE  `article_image`  `article_images` LONGTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL ; */ ?>
