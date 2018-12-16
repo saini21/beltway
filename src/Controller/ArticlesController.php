@@ -46,11 +46,10 @@ class ArticlesController extends AppController {
         if ($daysOld <= 90) {
             $showBtn = true;
         }
-    
+        
         $this->set('showBtn', $showBtn);
         
     }
-    
     
     
     /**
@@ -151,10 +150,6 @@ class ArticlesController extends AppController {
                 $article = $this->Articles->find('all', ['conditions' => ['id' => $this->request->data['id'], 'user_id' => $this->Auth->user('id')]])->first();
             }
             
-            if ($this->request->data['article_image'] == "undefined") {
-                unset($this->request->data['article_image']);
-            }
-            
             $article->user_id = $this->Auth->user('id');
             $article = $this->Articles->patchEntity($article, $this->request->getData());
             
@@ -167,6 +162,38 @@ class ArticlesController extends AppController {
             }
         }
         echo $this->responseFormat();
+    }
+    
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function upload() {
+        $this->autoRender = false;
+        $this->responseCode = CODE_BAD_REQUEST;
+        
+        if ($this->request->is('post')) {
+            
+            $filePath = '/files/Articles/' . $this->Auth->user('id') . '/';
+            
+            if (!file_exists(WWW_ROOT . $filePath)) {
+                mkdir(WWW_ROOT . $filePath, 0777, true);
+            }
+            $file = $this->request->data['file'];
+            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            
+            $fileUniqueName = uniqid() . "." . $ext;
+            
+            $fileFullPath = $filePath . $fileUniqueName;
+            if (move_uploaded_file($file["tmp_name"], WWW_ROOT . $fileFullPath)) {
+                $this->responseMessage = __('Your article has been saved.');
+                $this->responseCode = SUCCESS_CODE;
+                $this->responseData['path'] = $fileFullPath;
+            }
+        }
+        echo $this->responseFormat();
+        exit;
     }
     
     private function __getArticles($page = 1, $key = "") {
@@ -353,11 +380,31 @@ class ArticlesController extends AppController {
         
         echo $this->responseFormat();
         
-        
+        exit;
     }
     
     private function __getLikeCount($articlesId) {
         return $this->Articles->find()->select(['Articles.like_count'])->where(['Articles.id' => $articlesId])->first();
+    }
+    
+    public function removeArticleApi($id) {
+        $this->autoRender = false;
+        $this->responseCode = CODE_BAD_REQUEST;
+        $article = $this->Articles->find('all')->where(['Articles.id' => $id, 'Articles.user_id' => $this->Auth->user('id')])->first();
+        
+        if (!empty($article->toArray())) {
+            if (!empty($article->article_images)) {
+                $articleImages = explode(",", $article->article_images);
+                foreach ($articleImages as $articleImage) {
+                    unlink(WWW_ROOT . $article->article_images);
+                }
+            }
+//            if ($this->Articles->delete($article)) {
+//                $this->responseCode = SUCCESS_CODE;
+//            }
+        }
+        echo $this->responseFormat();
+        exit;
     }
     
     
