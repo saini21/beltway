@@ -1,3 +1,4 @@
+
 <?php
 
 require_once 'constants.php';
@@ -200,11 +201,11 @@ return [
         'default' => [
             'className' => 'Smtp', //'Mail',
             // The following keys are used in SMTP transports
-            'host' => 'smtp.gmail.com',
-            'port' => 587,
+            'host' => 'mail.beltwaygraffiti.com',
+            'port' => 25,
             'timeout' => 30,
-            'username' => 'er.singhsandy@gmail.com',
-            'password' => 'dodevelopment',
+            'username' => 'info@beltwaygraffiti.com',
+            'password' => 'ztech@44',
             'client' => null,
             'tls' => true,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
