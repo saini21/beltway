@@ -299,10 +299,10 @@
                     required: "Please agree terms and conditions and privacy policy."
                 }
             },
-             submitHandler: function (form) { 
+            submitHandler: function (form) { 
 				   $('#pleaseWait').modal('show');
 				   $('#registerBtn').prop('disabled', true);
-form.submit();
+                                   //form.submit();
 			   }
         });
         
