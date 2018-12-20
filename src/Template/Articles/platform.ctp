@@ -3,7 +3,8 @@
 echo $this->Html->css(['uploadfile']);
 echo $this->Html->script(['jquery.uploadfile']);
 ?>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"/>
 <style>
     .article-no-image {
@@ -265,6 +266,13 @@ echo $this->Html->script(['jquery.uploadfile']);
     </div>
 </template>
 
+<template id="imageTmpl">
+    <div class="ajax-file-upload-statusbar" style="width: 100%;" id="oldImage_${index}">
+        <img class="ajax-file-upload-preview" src="<?= SITE_URL; ?>${img}" style="width: 10%; height: auto;">
+        <div class="ajax-file-upload-red delete-old-img" style="" data-img="${img}">Delete</div>
+    </div>
+</template>
+
 
 <?= $this->element('post-article') ?>
 <?= $this->element('upgrade-account') ?>
@@ -320,16 +328,17 @@ echo $this->Html->script(['jquery.uploadfile']);
                             if (response.code == 200) {
                                 $('#postArticle').modal('hide');
                                 $('articleId').val('0');
+                                $.template("articleTmpl", $('#articleTmpl').html());
                                 if (ArticleId == 0) {
                                     $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
                                 } else {
-                                    $('#articleTitleBox_' + ArticleId).html(response.data.article.title);
-                                    $('#articleContentBox_' + ArticleId).html(response.data.article.content);
+                                    $("#article_" + ArticleId).replaceWith($.tmpl("articleTmpl", [response.data.article]));
                                 }
                             } else {
                                 $().showFlashMessage("error", response.message);
-                                
                             }
+                            
+                            $('#ajaxContainer').html('');
                         }
                     });
                     return false;
@@ -379,9 +388,10 @@ echo $this->Html->script(['jquery.uploadfile']);
                         success: function (response) {
                             if (response.code == 200) {
                                 $('#previewImage img').attr('src', '');
-                                $('#siteBaseUrl, #siteTitle, #siteDescription, #selectedFile').html('');
+                                $('#siteBaseUrl, #siteTitle, #siteDescription, #selectedFile, #ajaxContainer').html('');
                                 $('#agendaSubjectOnPage, #agendaContentOnPage, .link-fields').val('');
                                 document.getElementById("agendaFormOnPage").reset();
+                                $.template("articleTmpl", $('#articleTmpl').html());
                                 $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
                             } else {
                                 $().showFlashMessage("error", response.message);
@@ -429,6 +439,7 @@ echo $this->Html->script(['jquery.uploadfile']);
         
         $('#atricles').on('click', '.edit_article', function () {
             var id = $(this).attr('id').split('_')[1];
+            $("#ajaxContainerPopup").html("");
             
             $.ajax({
                 url: SITE_URL + "/articles/get-article-api/" + id,
@@ -440,7 +451,17 @@ echo $this->Html->script(['jquery.uploadfile']);
                         $('#agendaSubject').val(response.data.article.title);
                         $('#agendaContent').val(response.data.article.content);
                         $('#articleId').val(response.data.article.id);
+                        $('#articleImagesPopup').val(response.data.article.article_images);
                         $('#publishAgendaBtn').val('Update');
+                        
+                        var images = response.data.article.article_images.split(",");
+                        var imgs = [];
+                        $.each(images, function (index, img) {
+                            imgs.push({index: index, img: img});
+                        });
+                        console.log(imgs);
+                        $.template("imageTmpl", $('#imageTmpl').html());
+                        $.tmpl("imageTmpl", imgs).appendTo("#ajaxContainerPopup");
                         $('#postArticle').modal('show');
                     } else {
                         $().showFlashMessage("error", response.message);
@@ -449,6 +470,21 @@ echo $this->Html->script(['jquery.uploadfile']);
             });
             
         });
+        
+        $('#postArticle').on('click', '.delete-old-img', function () {
+            var images = $('#articleImagesPopup').val().split(',');
+            var imgs = [];
+            var currentImage = $(this).attr('data-img');
+            $.each(images, function (index, img) {
+                if (currentImage != img) {
+                    imgs.push(img);
+                }
+            });
+            
+            $('#articleImagesPopup').val(imgs.join(","));
+            $(this).parent().remove();
+        });
+        
         
         $('#uploadAgenda').click(function () {
             $('#agendaSubject').val('');
@@ -776,12 +812,12 @@ echo $this->Html->script(['jquery.uploadfile']);
                 });
             }
         });
-    
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
             event.preventDefault();
             $(this).ekkoLightbox();
         });
-    
+        
         
     });
 

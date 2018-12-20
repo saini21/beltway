@@ -29,6 +29,16 @@
                             <label for="agendaContent" class="error" style="margin-top: 10px;"></label>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-1">&nbsp;</div>
+                        <div class="col-lg-10 text-right" style="color: #337ab7">
+                            <div id="multipleFileUploader" style="display: none"></div>
+            
+                            <div class="ajax-file-upload-container" id="ajaxContainerPopup"></div>
+                            <input type="hidden" name="article_images" id="articleImagesPopup" value=""/>
+                        </div>
+                        <div class="col-lg-1">&nbsp;</div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value="Update" id="publishAgendaBtn"/>
