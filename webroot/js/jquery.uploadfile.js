@@ -27,6 +27,7 @@
             // http://stackoverflow.com/questions/11832930/html-input-file-accept-attribute-file-type-csv
             acceptFiles: "*",
             fileName: "file",
+            fileUploadId: "ajax-upload-id",
             formData: false,
             dynamicFormData: false,
             maxFileSize: -1,
@@ -538,13 +539,13 @@
             var fileUploadId = "ajax-upload-id";
 
             var form = $("<form method='" + s.method + "' action='" + s.url + "' enctype='" + s.enctype + "'></form>");
-            var fileInputStr = "<input type='file' id='" + fileUploadId + "' name='" + s.fileName + "' accept='" + s.acceptFiles + "'/>";
+            var fileInputStr = "<input type='file' id='" + s.fileUploadId + "' name='" + s.fileName + "' accept='" + s.acceptFiles + "'/>";
             if (s.multiple) {
                 if (s.fileName.indexOf("[]") != s.fileName.length - 2) // if it does not endwith
                 {
                     s.fileName += "[]";
                 }
-                fileInputStr = "<input type='file' id='" + fileUploadId + "' name='" + s.fileName + "' accept='" + s.acceptFiles + "' multiple/>";
+                fileInputStr = "<input type='file' id='" + s.fileUploadId + "' name='" + s.fileName + "' accept='" + s.acceptFiles + "' multiple/>";
             }
             var fileInput = $(fileInputStr).appendTo(form);
 

@@ -106,7 +106,6 @@ echo $this->Html->script(['jquery.uploadfile']);
                                 function chooseFile() {
                                     document.getElementById("ajax-upload-id").click();
                                 }
-                            
                             </script>
                             <br/>
                             <label class="pull-right" id="photoError" style="display: none; margin-top: 10px; ont-weight: normal; color: #F20034; line-height: 0px;
@@ -200,7 +199,7 @@ echo $this->Html->script(['jquery.uploadfile']);
             <br/>
             <div class="row">
                 <div class="col-lg-12 text-left">
-                    {%if article_images == null %}
+                    {%if article_images == null || article_images.length == 0 %}
                     &nbsp;
                     {%else%}
                     {{each(index, val) images = article_images.split(',')}}
@@ -283,7 +282,7 @@ echo $this->Html->script(['jquery.uploadfile']);
     var loadingData = false;
     var photoTypeError = false;
     $(function () {
-        
+       
        $("#fileInput").change(function () {
             var file = document.getElementById('fileInput');
             $('#selectedFile').html("<b>Selected File: </b>" + file.files.item(0).name);
@@ -297,54 +296,7 @@ echo $this->Html->script(['jquery.uploadfile']);
             }
         });
         
-        $("#agendaForm").validate({
-            rules: {
-                title: {
-                    required: true
-                },
-                content: {
-                    required: true
-                },
-            },
-            messages: {
-                title: {
-                    required: "Please enter agenda subject"
-                },
-                content: {
-                    required: "Please enter agenda description"
-                }
-            },
-            submitHandler: function (form) {
-                
-                if (!photoTypeError) {
-                    $.ajax({
-                        url: SITE_URL + "/articles/add-api",
-                        type: "POST",
-                        data: $("#agendaForm").serialize(),
-                        dataType: "json",
-                        success: function (response) {
-                            var ArticleId = $('#articleId').val();
-                            
-                            if (response.code == 200) {
-                                $('#postArticle').modal('hide');
-                                $('articleId').val('0');
-                                $.template("articleTmpl", $('#articleTmpl').html());
-                                if (ArticleId == 0) {
-                                    $.tmpl("articleTmpl", [response.data.article]).prependTo("#atricles");
-                                } else {
-                                    $("#article_" + ArticleId).replaceWith($.tmpl("articleTmpl", [response.data.article]));
-                                }
-                            } else {
-                                $().showFlashMessage("error", response.message);
-                            }
-                            
-                            $('#ajaxContainer').html('');
-                        }
-                    });
-                    return false;
-                }
-            }
-        });
+       
         
         
         $("#agendaFormOnPage").validate({
@@ -436,40 +388,6 @@ echo $this->Html->script(['jquery.uploadfile']);
         setTimeout(function () {
             getArticles();
         }, 500);
-        
-        $('#atricles').on('click', '.edit_article', function () {
-            var id = $(this).attr('id').split('_')[1];
-            $("#ajaxContainerPopup").html("");
-            
-            $.ajax({
-                url: SITE_URL + "/articles/get-article-api/" + id,
-                type: "GET",
-                dataType: "json",
-                success: function (response) {
-                    
-                    if (response.code == 200) {
-                        $('#agendaSubject').val(response.data.article.title);
-                        $('#agendaContent').val(response.data.article.content);
-                        $('#articleId').val(response.data.article.id);
-                        $('#articleImagesPopup').val(response.data.article.article_images);
-                        $('#publishAgendaBtn').val('Update');
-                        
-                        var images = response.data.article.article_images.split(",");
-                        var imgs = [];
-                        $.each(images, function (index, img) {
-                            imgs.push({index: index, img: img});
-                        });
-                        console.log(imgs);
-                        $.template("imageTmpl", $('#imageTmpl').html());
-                        $.tmpl("imageTmpl", imgs).appendTo("#ajaxContainerPopup");
-                        $('#postArticle').modal('show');
-                    } else {
-                        $().showFlashMessage("error", response.message);
-                    }
-                }
-            });
-            
-        });
         
         $('#postArticle').on('click', '.delete-old-img', function () {
             var images = $('#articleImagesPopup').val().split(',');
@@ -817,6 +735,11 @@ echo $this->Html->script(['jquery.uploadfile']);
             event.preventDefault();
             $(this).ekkoLightbox();
         });
+        
+        
+        
+        
+        
         
         
     });
