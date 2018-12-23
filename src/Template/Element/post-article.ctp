@@ -264,6 +264,8 @@
         var editProgress = null;
         $('#agendaContent').keyup(function () {
             var q = $(this).val();
+            $("#ajaxContainerPopup, #edit_siteBaseUrl, #edit_siteTitle, #edit_siteDescription").html("");
+            $('#edit_link, #edit_linkHost, #edit_linkTitle, #edit_linkDescription, #edit_linkImage').val('');
             editProgress = $.ajax({
                 type: 'POST',
                 data: 'q=' + q,
@@ -286,7 +288,7 @@
                             beforeSend: function () {
                                 $('#edit_siteBaseUrl').html('Fetching Preview...');
                                 $('#edit_previewImage img').attr('src', '');
-                                $('#edit_siteTitle, #siteDescription').html('');
+                                $('#edit_siteTitle, #edit_siteDescription').html('');
                             },
                             success: function (resp) {
                                 if (resp.code == 200) {
