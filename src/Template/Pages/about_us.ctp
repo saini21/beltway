@@ -27,7 +27,7 @@
     
                 <!-- a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register',"?show=false"]); ?>"><h5>FREE TRIAL until May 31, 2019.</h5></a -->
     
-                <p>In early 2019 an email will be sent to all registered users and Beltway Graffiti will begin operating under a monthly subscription model: $0.99/month for “electorate” access.  A monthly fee structure is currently being constructed for “politician” access.<br /><br />
+                <p>During May ’19 an email will be sent to all registered users and Beltway Graffiti will begin operating under a monthly subscription model: $0.99/month for “electorate” access.  A monthly fee structure is currently being constructed for “politician” access.<br /><br />
     
                 <!-- There are two main reasons we’ve chosen a subscription service and we feel strongly both will enhance the user experience.  First, enable the site to generate revenue while maintaining our promise of not sharing user data with outside advertisers.  Second, a deterrent against those whose sole purpose is to irritate rather than debate constructively.<br /><br />
     

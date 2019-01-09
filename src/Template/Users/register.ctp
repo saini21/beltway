@@ -100,11 +100,11 @@
         <?= $this->Html->image('hand-shake.png', ['alt' => SITE_TITLE]); ?>
         Connect directly with politicians and other members of the electorate <br>
         <br>
-        <?= $this->Html->image('pensil.png', ['alt' => SITE_TITLE]); ?>
+        <!-- <?= $this->Html->image('pensil.png', ['alt' => SITE_TITLE]); ?>
         Safe space for open interaction without fear of personal attacks<br>
-        <br>
+        <br -->
         <?= $this->Html->image('location.png', ['alt' => SITE_TITLE]); ?>
-        User data is secure in a private server and will not be shared
+        User data secure in a private server and will not be shared
     </div>
 </div>
 <div class="col-md-5">
@@ -114,7 +114,7 @@
         <div class="col-sm-12">
             <div class="radio radio-danger">
                 <input type="radio" name="role" id="privateCitizen" value="Private Citizen">
-                <label for="privateCitizen"> Electorate </label>
+                <label for="privateCitizen"> General Public </label>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
                 <input type="radio" name="role" id="politician" value="Politician">
                 <label for="politician"> Politician </label>
